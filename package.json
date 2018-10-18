@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/vguillaume8/exerciseApp#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "cookie-parser": "^1.4.3",
+    "debug": "^4.1.0",
+    "express": "^4.16.3",
+    "http-errors": "^1.7.1",
+    "jade": "^1.11.0"
   }
 }
