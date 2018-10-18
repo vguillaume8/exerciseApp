@@ -10,4 +10,6 @@ RUN npm install
 
 CMD node app.js
 
+RUN npm start
+
 EXPOSE 80
