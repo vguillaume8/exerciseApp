@@ -7,7 +7,7 @@ var logger = require('morgan');
 // Database
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('localhost:27017/exercise');
+var db = monk('dev.jabaridash.com:27017');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
