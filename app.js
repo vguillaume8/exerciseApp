@@ -1,52 +1,24 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const userController    = require('./controller/user.controller');
+const exerciseController = require('./controller/exercise.controller');
+const fileUploadController = requite('./controller/fileupload.controller');
+const port = process.env.PORT || 3000;
 
-// Database
-var mongo = require('mongodb');
-var monk = require('monk');
-var db = monk('dev.jabaridash.com:27017');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-var app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-// Make our db accessible to our router
-app.use(function(req,res,next){
-  req.db = db;
-  next();
-});
+app.get('/user', userController.findAll);
+app.get('/user/:id', userController.findById);
+app.post('/user', userController.save);
+app.delete('/user/:id', userController.deleteById);
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+app.get('/exercise', exerciseController.findAll);
+app.get('/exercise/:id', exerciseController.findById);
+app.post('/exercise', exerciseController.save);
+app.delete('/exercise/:id', exerciseController.deleteById);
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.post('/fileupload', fileuploadController.save);
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-module.exports = app;
+app.listen(port, () => console.log(`Listening on port ${port}...`));

@@ -1,18 +1,15 @@
 {
-  "name": "exercise",
-  "version": "0.0.0",
-  "private": true,
+  "name": "version3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "controller.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.6.9",
-    "express": "~4.16.0",
-    "http-errors": "~1.6.2",
-    "jade": "~1.11.0",
-    "mongodb": "^3.1.8",
-    "monk": "^6.0.6",
-    "morgan": "~1.9.0"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
   }
 }
