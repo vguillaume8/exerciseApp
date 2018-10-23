@@ -1,7 +1,7 @@
 const repository = require('../repository/exercise.repository');
 
 function findById(res,id){
-    let exerciseexercise = repository.findById(id);
+    let exercise = repository.findById(id);
     res.send(exercise);
 
 }

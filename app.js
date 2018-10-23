@@ -6,8 +6,8 @@ const exerciseController = require('./controller/exercise.controller');
 //const fileUploadController = require('./controller/fileupload.controller');
 const port = process.env.PORT || 3000;
 
-app.use(express.json());
 
+app.use(express.json());
 app.get('/user', userController.findAll);
 app.get('/user/:id', userController.findById);
 app.post('/user', userController.save);

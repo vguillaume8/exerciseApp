@@ -45,7 +45,7 @@ function save(user) {
 
 // Delete a user by id
 function deleteById(id) {
-
+    id = parseInt(id);
     let user = findById(id);
 
     if (!user) 
