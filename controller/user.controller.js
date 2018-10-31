@@ -37,8 +37,8 @@ function findAll(req, res, next){
 };
 
 function save(req, res, next) {
+    console.log("API WORKS!!!");
     var newUser = new User(req.body);
-    console.log(newUser);
     newUser.save(function(err, user){
         if(err){
             res.send(err);

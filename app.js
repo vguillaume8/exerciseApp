@@ -10,6 +10,12 @@ const userController = require('./controller/user.controller');
 
 const port = 3000;
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  next();
+});
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use('/', express.static(__dirname + '/public'));
@@ -52,6 +58,7 @@ const multerConfig = {
             }
         }
       };
+    
 
 app.use(express.json());
 app.get('/user', userController.findAll);
