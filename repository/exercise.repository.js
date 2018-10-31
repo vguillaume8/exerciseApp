@@ -45,7 +45,7 @@ function save(exercise) {
 
 // Delete a exercise by id
 function deleteById(id) {
-
+    id = parseInt(id)
     let exercise = findById(id);
 
     if (!exercise) 
@@ -54,6 +54,15 @@ function deleteById(id) {
     exercises.delete(id)
 
     return exercise;
+}
+
+function getAllUserExercises(id){
+    let values = []
+
+    exercises.forEach( (v, id) => values.push(v)) 
+
+    return values
+
 }
 
 module.exports = {

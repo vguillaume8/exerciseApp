@@ -1,4 +1,5 @@
 const repository = require('../repository/user.repository');
+const exercise_repo = require('../repository/exercise.repository');
 
 function findById(res, id) {
 
@@ -27,6 +28,16 @@ function save(res, entity){
 function deleteById(res, id){
     let user = repository.deleteById(id);
     res.send(user);
+    
+}
+
+function getAllUserExercises(res, id){
+    let exercises_list = exercise_repo.getAllUserExercises(id);
+    let body = {
+        content: list
+    };
+
+    res.send(body);
     
 }
 

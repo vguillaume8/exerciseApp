@@ -28,6 +28,7 @@ function findAll() {
 
 // Save a new user
 function save(user) {
+    
 
     if (user.id) 
         throw new Error("User already exists by id: ${user.id}")

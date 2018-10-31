@@ -13,4 +13,8 @@ class Exercise{
     get details(){
         return this._details;
     }
+
+    set details(data){
+        this.details.push(data);
+    }
 }

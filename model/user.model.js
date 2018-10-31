@@ -1,31 +1,21 @@
+'use strict';
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-class User{
-
-    constructor(name){
-        this.name = name;
-        this.exercises = [];
-
-    }    
-
-    get name(){
-        return this._name;
+var UserModel = new Schema({
+  firstName: String,
+  lastName: String,
+  ExerciseList: [
+    {
+      name: String,
+      duration: String,
+      Date: String
     }
+  ],
+  PhotoList: [{
+    fileName: String
+  }]
 
-    set name(name){
-        this._name = name;
-    }
+});
 
-    get exercises(){
-        return this._exercises;
-    }
-
-    set exercises(exercises) {
-        this._exercises = exercises;
-    }
-
-
-}
-
-module.exports = {
-    User
-};
+module.exports = mongoose.model('User', UserModel);
