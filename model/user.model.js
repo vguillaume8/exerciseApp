@@ -7,6 +7,7 @@ var UserModel = new Schema({
   lastName: String,
   ExerciseList: [
     {
+      _id: false,
       name: String,
       duration: String,
       Date: String

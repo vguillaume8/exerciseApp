@@ -43,7 +43,10 @@ function save(req, res, next) {
         if(err){
             res.send(err);
         }
-        res.json(user);
+        let id = user._id;
+        let url = 'http://localhost:8080/log' + '?' + id;
+        res.redirect(url);
+        
     });
 };
 
@@ -73,6 +76,7 @@ function deleteById(req, res, next){
 
 function createExercise(req, res, next){
     var exercises = req.body;
+    console.log(exercises);
     User.findOneAndUpdate(
         {_id: req.params.userId},
         {$push: {ExerciseList: exercises}},
@@ -128,6 +132,18 @@ function deletePhoto(req, res, next){
     );
 };
 
+function getUserExercises(req, res, next){
+    User.findById(req.params.userId, function(err, user){
+        if(err){
+            res.send(err);
+        }
+        res.json(user.ExerciseList);
+
+    });
+    
+
+}
+
 
 
 
@@ -141,5 +157,6 @@ module.exports = {
     createExercise,
     updateUser,
     saveFileName,
-    deletePhoto
+    deletePhoto,
+    getUserExercises
 }

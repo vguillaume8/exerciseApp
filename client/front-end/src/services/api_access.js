@@ -1,3 +1,7 @@
-const api_root = "http://localhost:8080/app";
-
+export function getUrl(){
+    document.getElementById("demo").innerHTML = 
+    "The full URL of this page is:<br>" + window.location.href;
+    
+}
+   
 

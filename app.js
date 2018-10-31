@@ -66,7 +66,7 @@ app.post('/user', userController.save);
 
 
 app.get('/user/:userId', userController.findById);
-app.put('/user/:userId', userController.createExercise);
+
 app.delete('/user/:userId', userController.deleteById);
 
 app.post('/upload/:userId', multer(multerConfig).single('photo'), function(req, res){
@@ -76,5 +76,8 @@ app.post('/upload/:userId', multer(multerConfig).single('photo'), function(req, 
 app.delete('/photo/:userId/:fileName', userController.deletePhoto);
 
 app.get('/photo/:userId', userController.getPhotos);
+
+app.put('/exercise/:userId', userController.createExercise);
+app.get('/exercise/:userId', userController.getUserExercises);
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));

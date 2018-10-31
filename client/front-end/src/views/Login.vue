@@ -2,7 +2,7 @@
 <div>
 
 
-    <form action="http://localhost:3000/user" method="post">
+    <form action="http://localhost:3000/user" method="get">
   <div class="form-group">
     <label for="first_name">First Name</label>
     <input type="text" name="firstName" class="form-control" id="firstName" aria-describedby="emailHelp" placeholder="Enter first Name">
