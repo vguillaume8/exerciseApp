@@ -29,9 +29,11 @@ const multerConfig = {
      destination: function(req, file, next){
        next(null, './public/photo-storage');
        },   
+       
         
         //Then give the file a unique name
         filename: function(req, file, next){
+          
 
             
             const ext = file.mimetype.split('/')[1];
@@ -70,6 +72,7 @@ app.get('/user/:userId', userController.findById);
 app.delete('/user/:userId', userController.deleteById);
 
 app.post('/upload/:userId', multer(multerConfig).single('photo'), function(req, res){
+    console.log(res.photo);
     res.send('Complete');
 });
 

@@ -99,6 +99,7 @@ function getPhotos(req, res, next){
 
 function saveFileName(file_name, req){
     var fileName = {fileName: file_name}
+    console.log("FILE UPLOAD WORKS");
 
     User.findOneAndUpdate(
         {_id: req.params.userId},
@@ -108,6 +109,7 @@ function saveFileName(file_name, req){
                 console.log(err);
             }
             console.log(user);
+
         }
     );
 };
