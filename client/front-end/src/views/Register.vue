@@ -15,10 +15,25 @@
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+<a @click.prevent="login" class="btn btn-sm btn-primary">Login with Facebook</a>
 </div>
 
-
 </template>
+
+<script>
+import * as fb from '@/services/facebook';
+
+export default {
+  methods: {
+    login() {
+      fb.FBLogin();
+    }
+  }
+ 
+  
+}
+</script>
+
 
 
 

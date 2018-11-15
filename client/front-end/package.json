@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.1.3",
+    "facebook-login-vuejs": "^2.1.3",
     "node-sass": "^4.9.4",
     "sass-loader": "^7.1.0",
     "vue": "^2.5.17",
@@ -32,6 +33,9 @@
     "rules": {},
     "parserOptions": {
       "parser": "babel-eslint"
+    },
+    "globals": {
+      "FB": false
     }
   },
   "postcss": {
