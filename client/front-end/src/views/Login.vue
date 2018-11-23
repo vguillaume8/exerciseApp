@@ -1,33 +1,87 @@
 <template>
-<div>
+    <div class="hello">
+        <h1>Login to your account</h1>
+        <h3>Register <a href="/register">Here </a></h3>
+        <input type="text" name="firstName" v-model="input.firstName" placeholder="First Name" />
+        <input type="text" name="lastName" v-model="input.lastName" placeholder="Last Name" />
+        <button v-on:click="sendData()">Send</button>
+        <button v-on:click="getPhotos()">Get Photos</button>
 
-
-    <form action="http://localhost:3000/user" method="get">
-  <div class="form-group">
-    <label for="first_name">First Name</label>
-    <input type="text" name="firstName" class="form-control" id="firstName" aria-describedby="emailHelp" placeholder="Enter first Name">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your info with anyone else.</small>
-  </div>
-  <div class="form-group">
-    <label for="last_name">Last Name</label>
-    <input type="text" name="lastName"  class="form-control" id="lastName" placeholder="Last Name">
-    <input type="hidden" name="redirect" value="/log">
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-<div id="fb-root"></div>
-<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
-</div>
-
-
+        <br />
+        <br />
+        <h3>{{response}} </h3>
+        <textarea>{{ message }}</textarea>
+        <img :src="`${photo}`"/>
+    </div>
 </template>
 
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=488823434962064&autoLogAppEvents=1';
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+<script>
+    var array = new Array();
+    export default {
+        name: 'HelloWorld',
+        data () {
+            return {
+                ip: "",
+                input: {
+                    
+                },
+                response: "",
+                message: "",
+                photo: ""
+            }
+        },
+        mounted() {
+            this.$http.get("https://httpbin.org/ip").then(result => {
+                this.ip = result.body.origin;
+            }, error => {
+                console.error(error);
+            });
+        },
+        methods: {
+            sendData() {
+                this.$http.post("http://localhost:3000/userLog", this.input, { headers: { "content-type": "application/json" } }).then(result => {
+                    var res = result.data[0];
+                    this.response = "Welcome Back " + res.firstName + "!",
+                    this.message = res;
+                    //array = res.PhotoList[0].fileName
+                    array = res.PhotoList[0].fileName;
+                }, error => {
+                    console.error(error);
+                });
+            },
+            getPhotos(){
+              this.$http.post("http://localhost:3000/getPhotos", {array}, { headers: { "content-type": "application/json" } }).then(result => {
+                 this.photo = result.imgs;
+                }, error => {
+                    console.error(error);
+                });
+             
+            }
+        }
+    }
+</script>
 
+<style scoped>
+    h1, h2 {
+        font-weight: normal;
+    }
 
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        display: inline-block;
+        margin: 0 10px;
+    }
+
+    a {
+        color: #42b983;
+    }
+
+    textarea {
+        width: 600px;
+        height: 200px;
+    }
+</style>

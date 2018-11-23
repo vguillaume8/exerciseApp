@@ -13,6 +13,22 @@ function findById(req, res, next) {
         res.json(user);
 
     });
+}
+function findUser(req, res){
+    //console.log(req.body);
+    var firstname = req.body.firstName;
+    var lastname = req.body.lastName;
+    User.find({firstName: firstname, lastName: lastname}, function(err, user){
+        if(user.length == 0){
+            console.log("user not found");
+        }else{
+            res.json(user);
+        console.log(user);
+        console.log("user found");
+        }
+        
+    })
+
 
     // let id = req.params.id;
 
@@ -38,6 +54,7 @@ function findAll(req, res, next){
 
 function save(req, res, next) {
     console.log("API WORKS!!!");
+    console.log(req.body);
     var newUser = new User(req.body);
     newUser.save(function(err, user){
         if(err){
@@ -89,12 +106,17 @@ function createExercise(req, res, next){
 };
 
 function getPhotos(req, res, next){
-   User.findById(req.params.userId, 'PhotoList.fileName', function(err, user){
-       if(err){
-           res.send(err);
-       }
-       res.json(user.PhotoList);
-   });
+//    User.findById(req.params.userId, 'PhotoList.fileName', function(err, user){
+//        if(err){
+//            res.send(err);
+//        }
+//        res.json(user.PhotoList);
+//    });
+    console.log(req.body);
+   
+        var paths = ['public/photo-storage/photo-1542957071439.jpeg'];              
+        res.send({ imgs: paths, layout:false});
+      
 };
 
 function saveFileName(file_name, req){
@@ -160,5 +182,6 @@ module.exports = {
     updateUser,
     saveFileName,
     deletePhoto,
-    getUserExercises
+    getUserExercises,
+    findUser
 }

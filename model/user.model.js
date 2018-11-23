@@ -16,7 +16,9 @@ var UserModel = new Schema({
   PhotoList: [{
     fileName: String
   }]
+ 
 
-});
+},
+{collection: 'users'});
 
 module.exports = mongoose.model('User', UserModel);

@@ -1,13 +1,19 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const multer = require('multer');
+const cloudinary = require("cloudinary");
+const cloudinaryStorage = require("multer-storage-cloudinary");
 const app = express();
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://dev.jabaridash.com:27017/User_exercise');
+//mongoose.connect('mongodb://dev.jabaridash.com:27017/User_exercise');
+mongoose.connect('mongodb+srv://vguillaume:vmoney502@cluster0-zb5te.gcp.mongodb.net/exerciseApp');
 const User = require('./model/user.model');
 const userController = require('./controller/user.controller');
-
+var connection = mongoose.connection;
+connection.on('connected', function(){
+  console.log("DB connected");
+})
 const port = 3000;
 
 app.use(function(req, res, next) {
@@ -60,11 +66,29 @@ const multerConfig = {
             }
         }
       };
+
+
+      cloudinary.config({
+        cloud_name: dhkzmky45,
+        api_key: 392267394929477,
+        api_secret: QvEb2taMj-clQpgzVttaJ--fpJ4
+        });
+        const storage = cloudinaryStorage({
+        cloudinary: cloudinary,
+        folder: "demo",
+        allowedFormats: ["jpg", "png"],
+        transformation: [{ width: 500, height: 500, crop: "limit" }]
+        });
+        const parser = multer({ storage: storage });
     
+
+
+
 
 app.use(express.json());
 app.get('/user', userController.findAll);
 app.post('/user', userController.save);
+app.post('/userLog', userController.findUser);
 
 
 app.get('/user/:userId', userController.findById);
@@ -79,6 +103,7 @@ app.post('/upload/:userId', multer(multerConfig).single('photo'), function(req, 
 app.delete('/photo/:userId/:fileName', userController.deletePhoto);
 
 app.get('/photo/:userId', userController.getPhotos);
+app.post('/getPhotos', userController.getPhotos);
 
 app.put('/exercise/:userId', userController.createExercise);
 app.get('/exercise/:userId', userController.getUserExercises);

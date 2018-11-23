@@ -23,10 +23,12 @@
 <script>
 import * as fb from '@/services/facebook';
 
+
 export default {
   methods: {
     login() {
       fb.FBLogin();
+
     }
   }
  
