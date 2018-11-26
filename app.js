@@ -116,6 +116,15 @@ app.post('/upload/:userId', parser.single('photo'), function(req, res){
   userController.saveFileName(image.url, req, res);
     console.log(res.photo);
 });
+app.post('/upload/', parser.single('photo'), function(req, res){
+  //console.log(req.file) // to see what is returned to you
+  const image = {};
+  console.log(req.cookie);
+  image.url = req.file.url;
+  image.id = req.file.public_id;
+  userController.saveFileNameById(image.url, req, res);
+    console.log(res.photo);
+});
 
 app.delete('/photo/:userId/:fileName', userController.deletePhoto);
 

@@ -24,8 +24,8 @@
                 <img :src="p" />
             </a>
         </ul>
-        
-        <modal name="hello-world">
+        <!--- put forms in class modal-body -->
+        <modal name="hello-world" class="modal-body">
             <div class="form-group">
                 <label for="exampleInputEmail1">Exercise Name</label>
                 <input type="text" class="form-control" id="exercisename" v-model="input.name" aria-describedby="exercise" placeholder="Name of Exercise" required>
@@ -40,13 +40,14 @@
             </div>
             <button v-on:click="sendExercise()" class="btn btn-primary">Submit</button>
         </modal>
-        <modal name="picture-modal">
-            <form id="picture-form" action="" method="post" enctype="multipart/form-data" onsubmit="return false">
+        <modal name="picture-modal" id="picture-modal" class="modal-body">
+            <form id="picture-form" action="http://localhost:3000/upload/" method="post" enctype="multipart/form-data">
                 <div class="form-group">  <label for="exampleInputFile">CHOOSE FILE</label>  
-                    <input type="file" name="photo"  @change="onFileChange">  
+                    <input type="file" name="photo" required >
+                    <input type="hidden" id="user" name="userId" value=""></input>
                     <p class="help-block">Upload a picture</p>  
                 </div>
-                <button v-on:click="sendPicture()" class="btn btn-primary" >Submit</button> 
+                <button type="submit" class="btn btn-primary" @submit="setPost()">Submit</button> 
             </form>
         </modal>
     </div>
@@ -125,6 +126,7 @@
                     array = res.PhotoList[0].fileName;
                     this.getPhotos(userId);
                     api.saveId(userId);
+                    this.$cookie.set("userId", keyValue, userId);
                     
                 }, error => {
                     console.error(error);
@@ -186,33 +188,18 @@
              },
              showPictureModal(){
                  this.$modal.show('picture-modal');
-                 var host = "http://localhost:3000/upload/" + userId;
-                 var form =document.getElementById("picture-form");
-                 form.action = host;
+                 var user = api.getUserId();
+                //  console.log("current user in modal: " + user);
+               
+               
              },
-             sendPicture(){
-                 var host = "http://localhost:3000/upload/" + userId;
-                this.$http.post(host, this.someData, { headers: { "content-type": "application/json" } }).then(result => {
-                
-
-                })
+             getId(){
+                 return userId;
              },
-             onFileChange(e) {
-       files = e.target.files || e.dataTransfer.files;
-      if (!files.length)
-        return;
-      this.createImage(files[0]);
-    },
-    createImage(file) {
-      var image = new Image();
-      var reader = new FileReader();
-      var vm = this;
-
-      reader.onload = (e) => {
-        vm.image = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
+             setPost() {
+                 document.getElementById("picture-form").action = "http://localhost:3000/upload/" + user;				
+            }
+             
             
         } 
 }

@@ -151,10 +151,34 @@ function saveFileName(file_name, req, res ){
                 console.log(err);
             }
             console.log(user);
-            let url = 'http://localhost:8080/login' + '?' + user.id;
+            //let url = 'http://localhost:8080/login' + '?' + user.id;
             //res.redirect(url);
             //res.status(200).end();
-            res.json(user);
+            //res.json(user);
+            res.send("complete");
+        }
+    );
+    
+};
+
+function saveFileNameById(file_name, req, res ){
+    var fileName = {fileName: file_name}
+    console.log("FILE UPLOAD WORKS");
+    console.log(req.body);
+
+    User.findOneAndUpdate(
+        {_id: req.body.userId},
+        {$push: {PhotoList: fileName}},
+        function(err, user){
+            if(err){
+                console.log(err);
+            }
+            console.log(user);
+            //let url = 'http://localhost:8080/login' + '?' + user.id;
+            //res.redirect(url);
+            //res.status(200).end();
+            //res.json(user);
+            res.send('complete');
         }
     );
     
@@ -207,5 +231,6 @@ module.exports = {
     saveFileName,
     deletePhoto,
     getUserExercises,
-    findUser
+    findUser,
+    saveFileNameById
 }
