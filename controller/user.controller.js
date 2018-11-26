@@ -4,8 +4,11 @@ const path = require('path');
 const multer = require('multer');
 const mongoose = require('mongoose'),
  User = mongoose.model('User');
+var currentId = 0;
+
 
 function findById(req, res, next) {
+    
     User.findById(req.params.userId, function(err, user){
         if(err){
             res.send(err);
@@ -23,6 +26,8 @@ function findUser(req, res){
             console.log("user not found");
             res.status(204).send("User not found");
         }else{
+
+            currentId = user[0]._id;
             res.json(user);
         console.log(user);
         console.log("user found");
@@ -155,7 +160,7 @@ function saveFileName(file_name, req, res ){
             //res.redirect(url);
             //res.status(200).end();
             //res.json(user);
-            res.send("complete");
+            res.json(user);
         }
     );
     
@@ -164,10 +169,11 @@ function saveFileName(file_name, req, res ){
 function saveFileNameById(file_name, req, res ){
     var fileName = {fileName: file_name}
     console.log("FILE UPLOAD WORKS");
+    console.log(req.cookie);
     console.log(req.body);
-
+    console.log("current user id: " + currentId);
     User.findOneAndUpdate(
-        {_id: req.body.userId},
+        {_id: currentId},
         {$push: {PhotoList: fileName}},
         function(err, user){
             if(err){
