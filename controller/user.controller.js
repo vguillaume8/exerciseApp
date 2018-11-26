@@ -21,6 +21,7 @@ function findUser(req, res){
     User.find({firstName: firstname, lastName: lastname}, function(err, user){
         if(user.length == 0){
             console.log("user not found");
+            res.status(204).send("User not found");
         }else{
             res.json(user);
         console.log(user);
@@ -54,17 +55,28 @@ function findAll(req, res, next){
 
 function save(req, res, next) {
     console.log("API WORKS!!!");
-    console.log(req.body);
-    var newUser = new User(req.body);
-    newUser.save(function(err, user){
-        if(err){
-            res.send(err);
+    //console.log(req.body);
+    var firstName = req.body.firstName;
+    var lastName = req.body.lastName;
+    User.find({firstName: firstName, lastName: lastName}, function(err, user){
+        if(user.length == 0){
+            var newUser = new User(req.body);
+            newUser.save(function(err, user){
+                if(err){
+                res.send(err);
+            }
+            let id = user._id;
+            let url = 'http://localhost:8080/log' + '?' + id;
+            res.redirect(url);
+
+            });
+    
+        }else{
+            let url = 'http://localhost:8080/secure';
+            res.redirect(url);
         }
-        let id = user._id;
-        let url = 'http://localhost:8080/log' + '?' + id;
-        res.redirect(url);
-        
-    });
+    })
+
 };
 
 function updateUser(req, res, next){
@@ -140,7 +152,9 @@ function saveFileName(file_name, req, res ){
             }
             console.log(user);
             let url = 'http://localhost:8080/login' + '?' + user.id;
-            res.redirect(url);
+            //res.redirect(url);
+            //res.status(200).end();
+            res.json(user);
         }
     );
     

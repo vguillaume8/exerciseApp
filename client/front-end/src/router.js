@@ -35,7 +35,13 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: () => import(/* webpackChunkName: "log" */ './views/Login.vue')
-    }
+    },
+    {
+      path: '/secure',
+      name: 'secure',
+      component: () => import(/* webpackChunkName: "log" */ './views/Secure.vue')
+    },
+
 
 
   ]

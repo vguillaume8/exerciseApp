@@ -93,6 +93,7 @@ app.post('/userLog', userController.findUser);
 
 
 app.get('/user/:userId', userController.findById);
+app.post('/userGet/:userId', userController.findById);
 
 app.delete('/user/:userId', userController.deleteById);
 

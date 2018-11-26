@@ -1,10 +1,10 @@
 <template>
     <div class="hello">
         <h1>Login to your account</h1>
-        <h3>Register <a href="/register">Here </a></h3>
+        <h3>Register <a href="/register">Here </a>if you do not have an account</h3>
         <input type="text" name="firstName" v-model="input.firstName" placeholder="First Name" required/>
         <input type="text" name="lastName" v-model="input.lastName" placeholder="Last Name" required/>
-        <button v-on:click="sendData()">Send</button>
+        <button v-on:click="sendData()">Login</button>
 
         <br />
         <br />
@@ -62,11 +62,16 @@
             }
         },
         mounted() {
-            this.$http.get("https://httpbin.org/ip").then(result => {
-                this.ip = result.body.origin;
-            }, error => {
-                console.error(error);
-            });
+            console.log("Current user id: " + api.getUserId());
+            if(api.getUserId() != 0 && userId != 0){
+                this.getData();
+
+            }
+            // this.$http.get("https://httpbin.org/ip").then(result => {
+            //     this.ip = result.body.origin;
+            // }, error => {
+            //     console.error(error);
+            // });
         },
         methods: {
             getPhotos(userId){
@@ -88,6 +93,10 @@
             },
               sendData() {
                 this.$http.post("http://localhost:3000/userLog", this.input, { headers: { "content-type": "application/json" } }).then(result => {
+                    console.log(result.status);
+                    if(result.status == 204){
+                        alert("There is no user found under that name!");
+                    }
                     var res = result.data[0];
                     this.response = "Welcome Back " + res.firstName + "!",
                     this.message = res;
@@ -105,12 +114,44 @@
                     //array = res.PhotoList[0].fileName
                     array = res.PhotoList[0].fileName;
                     this.getPhotos(userId);
+                    api.saveId(userId);
                     
                 }, error => {
                     console.error(error);
                     
                 });
                 
+            },
+            getData(){
+                console.log("Function ran");
+                var host = "http://localhost:3000/userGet/" + api.getUserId();
+                console.log(host);
+                this.$http.post(host, null, { headers: { "content-type": "application/json" } }).then(result => {
+                    var res = result;
+                    console.log(res);
+                    //this.response = "Welcome Back " + res.firstName + "!",
+                    this.message = res;
+                    var exArray = new Array();
+                    for(var i = 0; i < res.ExerciseList.length; i++){
+                        if(!this.isEmpty(res.ExerciseList[i])){
+                            exArray.push(res.ExerciseList[i]);
+                        }
+                    }
+                    this.exercises = exArray;
+                    this.pictureList = res.PhotoList;
+                    userId = res._id;
+                    console.log(userId);
+                    
+                    //array = res.PhotoList[0].fileName
+                    array = res.PhotoList[0].fileName;
+                    this.getPhotos(userId);
+                    api.saveId(userId);
+                    
+                }, error => {
+                    console.error(error);
+                    
+                });
+
             },
             sendExercise(){
               var host = "http://localhost:3000/exercise/" + userId; 

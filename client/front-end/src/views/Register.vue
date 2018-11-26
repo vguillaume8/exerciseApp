@@ -13,9 +13,8 @@
     <input type="text" name="lastName"  class="form-control" id="lastName" placeholder="Last Name" required>
     <input type="hidden" name="redirect" value="/log">
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary" osubmit="checkUser()">Register</button>
 </form>
-<a @click.prevent="login" class="btn btn-sm btn-primary">Login with Facebook</a>
 </div>
 
 </template>
@@ -28,6 +27,9 @@ export default {
   methods: {
     login() {
       fb.FBLogin();
+
+    },
+    checkUser(){
 
     }
   }

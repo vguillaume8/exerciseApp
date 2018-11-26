@@ -1,9 +1,9 @@
 <template>
   <div id="secure">
-    <h1> Secure Area</h1>
-    <p>
-      This is a secure area
-    </p>
+    <h1> Error</h1>
+    <h3>
+      A user exists under this name. Please go back and change name!
+    </h3>
   </div>
 
 
