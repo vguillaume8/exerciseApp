@@ -106,20 +106,28 @@ function createExercise(req, res, next){
 };
 
 function getPhotos(req, res, next){
-//    User.findById(req.params.userId, 'PhotoList.fileName', function(err, user){
-//        if(err){
-//            res.send(err);
-//        }
-//        res.json(user.PhotoList);
-//    });
-    console.log(req.body);
+   User.findById(req.params.userId, 'PhotoList.fileName', function(err, user){
+       if(err){
+           res.send(err);
+       }
+       var array = new Array();
+       var i;
+       for (i in user.PhotoList) {
+        var x = user.PhotoList[i];
+        console.log(x.fileName);
+        if(x.fileName != null){
+            array.push(x.fileName);
+        }
+        
+    }
+       //console.log(user.PhotoList);
+       res.json(array);
+       
+   });
    
-        var paths = ['public/photo-storage/photo-1542957071439.jpeg'];              
-        res.send({ imgs: paths, layout:false});
-      
 };
 
-function saveFileName(file_name, req){
+function saveFileName(file_name, req, res ){
     var fileName = {fileName: file_name}
     console.log("FILE UPLOAD WORKS");
 
@@ -131,9 +139,11 @@ function saveFileName(file_name, req){
                 console.log(err);
             }
             console.log(user);
-
+            let url = 'http://localhost:8080/login' + '?' + user.id;
+            res.redirect(url);
         }
     );
+    
 };
 
 function deletePhoto(req, res, next){
@@ -161,7 +171,7 @@ function getUserExercises(req, res, next){
         if(err){
             res.send(err);
         }
-        res.json(user.ExerciseList);
+        //res.json(user.ExerciseList);
 
     });
     

@@ -1,25 +1,22 @@
 const api_root = "localhost:3000";
 export let playerId = null;
 
-export function GetState(){
-    return myFetch(api_root + "/");
-}
-export function GetMyCaptions(){
-    return myFetch(api_root + `/captions/${playerId}`);
-}
-export function Login(firstname, lastname, fbid, access_token){
-    return myFetch(api_root + `/user`, { firstname, lastname, fbid, access_token })
-            .then(x=> playerId = x.id);
-}
-export function FlipPicture(){
-    return myFetch(api_root + "/picture", {})
-}
+export function getPhotos(userId, Vue){
+    var host = "http://localhost:3000/getPhotos/" + userId; 
+    console.log(host);
+  Vue.$http.post(host, { headers: { "content-type": "application/json" } }).then(result => {
+    
+     var array = result.body
+    //  var finalArray = array.split(",");
+   
+     this.photo = result.body;
+        //console.log(array[1]);
+    
+    }, error => {
+        console.error(error);
+    });
 
-export function SubmitCaption(c){
-    return myFetch(api_root + "/playedCaptions", {text: c})
-}
-export function ChooseCaption(c){
-    return myFetch(api_root + "/playedCaptions/choose",  {text: c.text})
+ 
 }
 
 
