@@ -15,7 +15,7 @@
             <li v-for="e in exercises" :key="e"
                 class="list-group-item">{{e}}</li>
         </ul>
-        <h3> Uploaded Pictures </h3>
+        <h3> Uploaded Pictures  <a @click.prevent="showPictureModal()" class="btn btn-sm btn-primary">+</a></h3>
         <!--<textarea>{{ pictureList }}</textarea> -->
         <img :src="`${photo}`"/>
         <ul class="list-group list-group-flush">
@@ -40,6 +40,15 @@
             </div>
             <button v-on:click="sendExercise()" class="btn btn-primary">Submit</button>
         </modal>
+        <modal name="picture-modal">
+            <form id="picture-form" action="" method="post" enctype="multipart/form-data" onsubmit="return false">
+                <div class="form-group">  <label for="exampleInputFile">CHOOSE FILE</label>  
+                    <input type="file" name="photo"  @change="onFileChange">  
+                    <p class="help-block">Upload a picture</p>  
+                </div>
+                <button v-on:click="sendPicture()" class="btn btn-primary" >Submit</button> 
+            </form>
+        </modal>
     </div>
 </template>
 
@@ -47,6 +56,7 @@
     import * as api from '@/services/api_access';
     var array = new Array();
     var userId = 0;
+    var files = null;
     export default {
         name: 'Lets Exercise!',
         data () {
@@ -173,7 +183,37 @@
                     }   
                 }
                 return true;
-             }
+             },
+             showPictureModal(){
+                 this.$modal.show('picture-modal');
+                 var host = "http://localhost:3000/upload/" + userId;
+                 var form =document.getElementById("picture-form");
+                 form.action = host;
+             },
+             sendPicture(){
+                 var host = "http://localhost:3000/upload/" + userId;
+                this.$http.post(host, this.someData, { headers: { "content-type": "application/json" } }).then(result => {
+                
+
+                })
+             },
+             onFileChange(e) {
+       files = e.target.files || e.dataTransfer.files;
+      if (!files.length)
+        return;
+      this.createImage(files[0]);
+    },
+    createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = (e) => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+            
         } 
 }
         
