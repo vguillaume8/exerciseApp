@@ -87,13 +87,15 @@ cloudinary.config({
 
 
 app.use(express.json());
-app.get('/user', userController.findAll);
+app.post('/userAll', userController.findAll);
 app.post('/user', userController.save);
 app.post('/userLog', userController.findUser);
 
 
 app.get('/user/:userId', userController.findById);
-app.post('/userGet/:userId', userController.findById);
+app.post('/userGet', userController.findById, function(req, res){
+  console.log(req.body);
+});
 
 app.delete('/user/:userId', userController.deleteById);
 

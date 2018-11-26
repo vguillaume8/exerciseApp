@@ -9,7 +9,7 @@
         <br />
         <br />
         <h3>{{response}} </h3>
-        <textarea>{{ message }}</textarea>
+        <textarea >{{ message }}</textarea>
         <h3> Logged Exercises <a @click.prevent="show()" class="btn btn-sm btn-primary">+</a></h3>
         <ul class="list-group list-group-flush">
             <li v-for="e in exercises" :key="e"

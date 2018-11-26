@@ -8,8 +8,8 @@ var currentId = 0;
 
 
 function findById(req, res, next) {
-    
-    User.findById(req.params.userId, function(err, user){
+    console.log(req.body);
+    User.findById(req.body.userId, function(err, user){
         if(err){
             res.send(err);
         }
@@ -34,13 +34,6 @@ function findUser(req, res){
         }
         
     })
-
-
-    // let id = req.params.id;
-
-    // console.log(`get user by ID: ${id}`);
-
-    // return service.findById(res, id);
 };
 
 function findAll(req, res, next){
@@ -60,14 +53,13 @@ function findAll(req, res, next){
 
 function save(req, res, next) {
     console.log("API WORKS!!!");
-    //console.log(req.body);
     var firstName = req.body.firstName;
     var lastName = req.body.lastName;
     User.find({firstName: firstName, lastName: lastName}, function(err, user){
         if(user.length == 0){
             var newUser = new User(req.body);
             newUser.save(function(err, user){
-                if(err){
+            if(err){
                 res.send(err);
             }
             let id = user._id;
@@ -75,7 +67,6 @@ function save(req, res, next) {
             res.redirect(url);
 
             });
-    
         }else{
             let url = 'http://localhost:8080/secure';
             res.redirect(url);
@@ -137,7 +128,6 @@ function getPhotos(req, res, next){
         }
         
     }
-       //console.log(user.PhotoList);
        res.json(array);
        
    });
@@ -215,8 +205,6 @@ function getUserExercises(req, res, next){
         if(err){
             res.send(err);
         }
-        //res.json(user.ExerciseList);
-
     });
     
 
