@@ -17,12 +17,16 @@
         </ul>
         <h3> Uploaded Pictures  <a @click.prevent="showPictureModal()" class="btn btn-sm btn-primary">+</a></h3>
         <!--<textarea>{{ pictureList }}</textarea> -->
-        <img :src="`${photo}`"/>
-        <ul class="list-group list-group-flush">
-            <a  v-for="p in photo" :key="p"
-                class="img-thumbnail">
-                <img :src="p" />
-            </a>
+        <img :src="`${photo}`" />
+        <ul class="list-group list-group-flush" id="menu">
+            <li>
+                <a  v-for="p in photo" :key="p"
+                    class="img-thumbnail">
+                    <img :src="p" v-on:click="deletePhoto(p)" />
+                    
+                </a>
+           
+            </li>
         </ul>
         <!--- put forms in class modal-body -->
         <modal name="hello-world" class="modal-body">
@@ -47,7 +51,7 @@
                     <input type="hidden" id="user" name="userId" value=""></input>
                     <p class="help-block">Upload a picture</p>  
                 </div>
-                <button type="submit" class="btn btn-primary" @submit="setPost()">Submit</button> 
+                <button type="submit" class="btn btn-primary">Submit</button> 
             </form>
         </modal>
     </div>
@@ -55,6 +59,7 @@
 
 <script>
     import * as api from '@/services/api_access';
+    import axios from 'axios';
     var array = new Array();
     var userId = 0;
     var files = null;
@@ -69,7 +74,8 @@
                 response: "",
                 message: "",
                 photo: "",
-                userId: ""
+                userId: "",
+                file: ""
             }
         },
         mounted() {
@@ -198,8 +204,19 @@
              },
              setPost() {
                  document.getElementById("picture-form").action = "http://localhost:3000/upload/" + user;				
+            },
+            deletePhoto(p){
+                var confirmmes = confirm("Do you want to delete this photo?");
+                    if (confirmmes == true) {
+                        this.crudDelete(p);
+                    }
+            },
+            crudDelete(p){
+                var ob = {name: p}
+                var host = "http://localhost:3000/deletePhoto/" + userId; 
+                this.$http.post(host, ob, { headers: { "content-type": "application/json" } }).this.sendData();
             }
-             
+                
             
         } 
 }
