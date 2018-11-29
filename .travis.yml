@@ -8,6 +8,7 @@ node_js:
 before_install:
   - chmod +x ./ci/server.sh
   - chmod +x ./ci/client.sh
+  - chmod +x ./ci/upload.sh
 
 services:
   - docker
