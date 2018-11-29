@@ -27,46 +27,6 @@ app.use(bodyParser.json());
 app.use('/', express.static(__dirname + '/public'));
 
 
-// const multerConfig = {
-    
-    
-//     storage: multer.diskStorage({
-//      //Setup where the user's file will go
-//      destination: function(req, file, next){
-//        next(null, './public/photo-storage');
-//        },   
-       
-        
-//         //Then give the file a unique name
-//         filename: function(req, file, next){
-          
-
-            
-//             const ext = file.mimetype.split('/')[1];
-//             var file_name = file.fieldname + '-' + Date.now() + '.'+ext
-//             userController.saveFileName(file_name, req);
-//             next(null, file_name );
-//           }
-//         }),   
-        
-//         //A means of ensuring only images are uploaded. 
-//         fileFilter: function(req, file, next){
-//               if(!file){
-//                 next();
-//               }
-//             const image = file.mimetype.startsWith('image/');
-//             if(image){
-//               console.log('photo uploaded');
-//               next(null, true);
-//             }else{
-//               console.log("file not supported");
-              
-//               //TODO:  A better message response to user on failure.
-//               return next();
-//             }
-//         }
-//       };
-
 cloudinary.config({
   cloud_name: 'dhkzmky45',
   api_key: '392267394929477',
@@ -110,15 +70,17 @@ app.delete('/user/:userId', userController.deleteById);
 //     .catch(err => console.log(err));
 // });
 
-app.post('/upload/:userId', parser.single('photo'), function(req, res){
-  console.log(req.file) // to see what is returned to you
+app.post('/upload/:userId', function(req, res){
+  console.log(req) // to see what is returned to you
   const image = {};
   image.url = req.file.url;
   image.id = req.file.public_id;
   userController.saveFileName(image.url, req, res);
     console.log(res.photo);
 });
+
 app.post('/upload/', parser.single('photo'), function(req, res){
+  console.log("Logged");
   //console.log(req.file) // to see what is returned to you
   const image = {};
   console.log(req.cookie);
@@ -127,6 +89,8 @@ app.post('/upload/', parser.single('photo'), function(req, res){
   userController.saveFileNameById(image.url, req, res);
     console.log(res.photo);
 });
+
+app.post('/deletePhoto/:userId', userController.deletePhoto);
 
 app.delete('/photo/:userId/:fileName', userController.deletePhoto);
 

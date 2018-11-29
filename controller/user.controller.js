@@ -170,24 +170,19 @@ function saveFileNameById(file_name, req, res ){
                 console.log(err);
             }
             console.log(user);
-            //let url = 'http://localhost:8080/login' + '?' + user.id;
-            //res.redirect(url);
+            let url = 'http://localhost:8080/login'
+            res.redirect(url);
             //res.status(200).end();
             //res.json(user);
-            res.send('complete');
+            
         }
     );
     
 };
 
-function deletePhoto(req, res, next){
-    var filename = path.join(__dirname + '/../../public/photo-storage/' + req.params.fileName);
-    fs.unlink(`${filename}`, (err) => {
-        if(err){
-            res.send(err);
-        }
-    });
-
+function deletePhoto(req, res){
+    const filename = req.body.name;
+    console.log(filename);
     User.findOneAndUpdate(
         {_id: req.params.userId},
         {$pull: {PhotoList: {fileName: filename}}},
