@@ -1,6 +1,6 @@
 FROM node:8.7
 
-ADD /  /app
+ADD /  /client
 
 
 
