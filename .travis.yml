@@ -2,6 +2,10 @@ sudo: required
 
 language: node_js
 
+node_js:
+  - "iojs"
+  - "7"
+
 before_install:
   - chmod +x ./ci/server.sh
   - chmod +x ./ci/client.sh
@@ -10,6 +14,7 @@ services:
   - docker
 
 script:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - ./ci/server.sh
   - ./ci/client.sh
 
