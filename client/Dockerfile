@@ -4,7 +4,7 @@ ADD /  /client
 
 
 
-WORKDIR  app
+WORKDIR  client
 
 RUN npm install
 
