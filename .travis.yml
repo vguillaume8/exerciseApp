@@ -3,8 +3,8 @@ sudo: required
 language: node_js
 
 before_install:
-  - chmod +x server.sh
-  - chmod +x client.sh
+  - chmod +x ./ci/server.sh
+  - chmod +x ./ci/client.sh
 
 services:
   - docker
