@@ -6,9 +6,6 @@
         <button v-for="a in all" :key="a" @click.prevent="getUser(a._id)"
           class="list-group-item  btn">{{a.firstName}}</button>
       </ul>
-      <hr class="my-4">
-      <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
     </div>
 
      <modal name="user-modal" id="user-modal" class="modal-body"  height="auto" :scrollable="true">
