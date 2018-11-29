@@ -8,6 +8,6 @@ WORKDIR  client
 
 RUN npm install
 
-CMD npm run start
+CMD npm run serve
 
 EXPOSE 8080

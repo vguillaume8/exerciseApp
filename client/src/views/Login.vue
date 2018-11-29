@@ -214,7 +214,9 @@
             crudDelete(p){
                 var ob = {name: p}
                 var host = "http://35.196.189.224:3000/deletePhoto/" + userId; 
-                this.$http.post(host, ob, { headers: { "content-type": "application/json" } }).this.sendData();
+                this.$http.post(host, ob, { headers: { "content-type": "application/json" } })
+                alert("Picture successfully deleted");
+                this.sendData();
             }
                 
             
