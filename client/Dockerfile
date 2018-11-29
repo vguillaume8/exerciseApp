@@ -4,9 +4,11 @@ ADD /  /client
 
 
 
-WORKDIR  client/dist
+WORKDIR  client/
 
 
 
 EXPOSE 8080
-CMD [ "http-server", "dist" ]
+RUN npm install -g serve
+
+CMD serve -s dist
