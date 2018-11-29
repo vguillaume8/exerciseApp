@@ -45,7 +45,7 @@
             <button v-on:click="sendExercise()" class="btn btn-primary">Submit</button>
         </modal>
         <modal name="picture-modal" id="picture-modal" class="modal-body">
-            <form id="picture-form" action="http://localhost:3000/upload/" method="post" enctype="multipart/form-data">
+            <form id="picture-form" action="http://35.196.189.224:3000/upload/" method="post" enctype="multipart/form-data">
                 <div class="form-group">  <label for="exampleInputFile">CHOOSE FILE</label>  
                     <input type="file" name="photo" required >
                     <input type="hidden" id="user" name="userId" value=""></input>
@@ -92,7 +92,7 @@
         },
         methods: {
             getPhotos(userId){
-                var host = "http://localhost:3000/getPhotos/"+userId; 
+                var host = "http://35.196.189.224:3000/getPhotos/"+userId; 
               this.$http.post(host, {array}, { headers: { "content-type": "application/json" } }).then(result => {
                 
                  var array = result.body
@@ -109,7 +109,7 @@
              
             },
               sendData() {
-                this.$http.post("http://localhost:3000/userLog", this.input, { headers: { "content-type": "application/json" } }).then(result => {
+                this.$http.post("http://35.196.189.224:3000/userLog", this.input, { headers: { "content-type": "application/json" } }).then(result => {
                     console.log(result.status);
                     if(result.status == 204){
                         alert("There is no user found under that name!");
@@ -142,7 +142,7 @@
             },
             getData(){
                 console.log("Function ran");
-                var host = "http://localhost:3000/userGet/" + api.getUserId();
+                var host = "http://35.196.189.224:3000/userGet/" + api.getUserId();
                 console.log(host);
                 this.$http.post(host, null, { headers: { "content-type": "application/json" } }).then(result => {
                     var res = result;
@@ -172,7 +172,7 @@
 
             },
             sendExercise(){
-              var host = "http://localhost:3000/exercise/" + userId; 
+              var host = "http://35.196.189.224:3000/exercise/" + userId; 
               this.$http.post(host, this.input, { headers: { "content-type": "application/json" } }).then(result => {
                   this.sendData();
                   this.modal.close();
@@ -203,7 +203,7 @@
                  return userId;
              },
              setPost() {
-                 document.getElementById("picture-form").action = "http://localhost:3000/upload/" + user;				
+                 document.getElementById("picture-form").action = "http://35.196.189.224:3000/upload/" + user;				
             },
             deletePhoto(p){
                 var confirmmes = confirm("Do you want to delete this photo?");
@@ -213,7 +213,7 @@
             },
             crudDelete(p){
                 var ob = {name: p}
-                var host = "http://localhost:3000/deletePhoto/" + userId; 
+                var host = "http://35.196.189.224:3000/deletePhoto/" + userId; 
                 this.$http.post(host, ob, { headers: { "content-type": "application/json" } }).this.sendData();
             }
                 
