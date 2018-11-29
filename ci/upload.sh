@@ -58,8 +58,8 @@ curl --data "$(generate_post_data)" "https://api.github.com/repos/$repo_full_nam
 
 # Build docker images with the same version number
 echo "Building docker images"
-docker build -t vguillaume/lets-exercise:$version  -f ../server/Dockerfile .
-docker build -t vguillaume/lets-exercise-client:$version  -f ../client/Dockerfile /
+docker build -t vguillaume/lets-exercise:$version server .
+docker build -t vguillaume/lets-exercise-client:$version client . /
 
 # Push them to docker hub
 echo "Pushing docker images"
