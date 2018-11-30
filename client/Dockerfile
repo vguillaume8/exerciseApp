@@ -14,5 +14,5 @@ FROM nginx
 EXPOSE 80
 
 # Copy /dist resources
-RUN cp dist/* /usr/share/nginx/html
+ADD ./dist /usr/share/nginx/html
 
