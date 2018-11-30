@@ -90,6 +90,8 @@ app.post('/upload/', parser.single('photo'), function(req, res){
     console.log(res.photo);
 });
 
+app.post('/deleteUser/:userId', userController.deleteById);
+
 app.post('/deletePhoto/:userId', userController.deletePhoto);
 
 app.delete('/photo/:userId/:fileName', userController.deletePhoto);

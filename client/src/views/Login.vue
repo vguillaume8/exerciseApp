@@ -10,12 +10,12 @@
         <br />
         <h3>{{response}} </h3>
         <!--<textarea >{{ message }}</textarea>-->
-        <h3> Logged Exercises <a @click.prevent="show()" class="btn btn-sm btn-primary">+</a></h3>
+        <h3 > Logged Exercises <a @click.prevent="show()" class="btn btn-sm btn-primary" :class="{disabled: ifUserId() == null}">+</a></h3>
         <ul class="list-group list-group-flush">
             <li v-for="e in exercises" :key="e"
                 class="list-group-item">{{e}}</li>
         </ul>
-        <h3> Uploaded Pictures  <a @click.prevent="showPictureModal()" class="btn btn-sm btn-primary">+</a></h3>
+        <h3 > Uploaded Pictures  <a @click.prevent="showPictureModal()" class="btn btn-sm btn-primary" :class="{disabled: ifUserId() == null}">+</a></h3>
         <!--<textarea>{{ pictureList }}</textarea> -->
         <img :src="`${photo}`" />
         <ul class="list-group list-group-flush" id="menu">
@@ -28,6 +28,7 @@
            
             </li>
         </ul>
+        <a class="btn btn-sm btn-primary" :class="{disabled: ifUserId() == null}"><img src="https://cdn2.iconfinder.com/data/icons/user-interface-30/26/2-512.png" @click.prevent="deleteUser(user)" width="50" height="50"></a>
         <!--- put forms in class modal-body -->
         <modal name="hello-world" class="modal-body">
             <div class="form-group">
@@ -59,7 +60,7 @@
 <script>
     import * as api from '@/services/api_access';
     var array = new Array();
-    var userId = 0;
+    var userId = null;
     export default {
         name: 'Lets Exercise!',
         data () {
@@ -72,7 +73,9 @@
                 message: "",
                 photo: "",
                 userId: "",
-                file: ""
+                file: "",
+                isActive: false
+                
             }
         },
         mounted() {
@@ -104,6 +107,7 @@
              
             },
               sendData() {
+                this.isActive = true;
                 this.$http.post("http://35.196.189.224:3000/userLog", this.input, { headers: { "content-type": "application/json" } }).then(result => {
                     //console.log(result.status);
                     if(result.status == 204){
@@ -121,13 +125,13 @@
                     this.exercises = exArray;
                     this.pictureList = res.PhotoList;
                     userId = res._id;
-                    //onsole.log(userId);
+                    console.log(userId);
                     
                     //array = res.PhotoList[0].fileName
                     array = res.PhotoList[0].fileName;
                     this.getPhotos(userId);
                     api.saveId(userId);
-                    //this.$cookie.set("userId", keyValue, userId);
+                    
                     
                 });
                 
@@ -204,6 +208,17 @@
                 this.$http.post(host, ob, { headers: { "content-type": "application/json" } })
                 alert("Picture successfully deleted");
                 this.sendData();
+            },
+             ifUserId(){
+                return userId;
+            },
+            deleteUser(userId){
+                var host = "http://35.196.189.224:3000/exercise/" + userId; 
+              this.$http.post(host, this.input, { headers: { "content-type": "application/json" } }).then(result => {
+                  host = result;
+                  this.sendData();
+                  this.modal.close();
+              });
             }
                 
             
