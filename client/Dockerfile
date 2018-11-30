@@ -13,6 +13,8 @@ RUN npm run build
 FROM nginx
 EXPOSE 80
 
+RUN pwd -a
+
 # Copy /dist resources
 ADD ./dist /usr/share/nginx/html
 
