@@ -1,7 +1,8 @@
 FROM node:8.7
 
+ADD ./client /client
 #
-WORKDIR /client
+WORKDIR client
 
 # Install dependencies using npm
 RUN npm install
@@ -12,6 +13,6 @@ RUN npm run build
 
 FROM nginx
 
-EXPOSE 8080
+EXPOSE 80
 
 ADD _dist/ /usr/share/nginx/html
