@@ -75,12 +75,12 @@ function save(req, res, next) {
             }
             let id = user._id;
             let url = host + '/login';
-            res.redirect(url);
+            res.redirect('/login');
 
             });
         }else{
             let url = host + 'secure';
-            res.redirect(url);
+            res.redirect('/secure');
         }
     })
 
@@ -104,7 +104,7 @@ function deleteById(req, res, next){
         }
         res.json({message: 'User successfully deleted'});
         let url = host + '/login';
-        res.redirect(url);
+        res.redirect('/login');
     });
 
     // console.log("Delete User by ID");
@@ -185,7 +185,7 @@ function saveFileNameById(file_name, req, res ){
             }
             console.log(user);
             let url = host + 'login'
-            res.redirect(url);
+            res.redirect('/login');
             //res.status(200).end();
             //res.json(user);
             
