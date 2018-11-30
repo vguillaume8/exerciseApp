@@ -9,6 +9,7 @@
     </div>
 
     <modal name="user-modal" id="user-modal" class="modal-body"  height="auto" :scrollable="true">
+        <span @click.prevent="hide()" class="close">&times;</span>
         <h3>Recent Photos</h3>
         <ul class="list-group list-group-flush" id="menu">
             <li>

@@ -79,7 +79,7 @@ function save(req, res, next) {
 
             });
         }else{
-            let url = hotst + 'secure';
+            let url = host + 'secure';
             res.redirect(url);
         }
     })
