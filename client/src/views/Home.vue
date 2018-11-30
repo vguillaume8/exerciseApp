@@ -85,7 +85,7 @@ export default {
               console.log(userId);
             var ob = {userId: userId};
             //var host = "http://35.196.189.224:3000/userGet";
-            this.$http.post("http://35.196.189.224:3000/userGet", ob, { headers: { "content-type": "application/json" } }).then(result => {
+            this.$http.post("http://35.196.189.224:3000/userGetHome", ob, { headers: { "content-type": "application/json" } }).then(result => {
               this.userData = result;
               if(result.data != null){
                   this.userDataPhoto = result.data.PhotoList;
