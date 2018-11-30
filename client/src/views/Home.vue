@@ -50,7 +50,7 @@
 
 <script>
 export default {
-  name: 'Lets Exercise!',
+  name: 'Lets-Exercise',
         data () {
             return {
                 ip: "",
