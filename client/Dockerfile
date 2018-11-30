@@ -6,15 +6,13 @@ WORKDIR /source
 
 # Build install and build
 RUN npm install
-RUN npm run build              
+RUN npm install -g serve
+RUN npm run build       
 
-# Install Nginx depedency 
-# and expose port 80
-FROM nginx
-EXPOSE 80
+WORKDIR dist
 
-RUN pwd -a
+EXPOSE 5000
 
-# Copy /dist resources
-ADD ./dist /usr/share/nginx/html
+CMD serve
+
 
