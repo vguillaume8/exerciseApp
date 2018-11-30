@@ -53,7 +53,7 @@ app.post('/userLog', userController.findUser);
 
 
 app.get('/user/:userId', userController.findById);
-app.post('/userGet', userController.findById);
+app.post('/userGet', userController.findByIdParam);
 
 app.delete('/user/:userId', userController.deleteById);
 

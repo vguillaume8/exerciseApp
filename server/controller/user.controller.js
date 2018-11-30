@@ -232,5 +232,6 @@ module.exports = {
     deletePhoto,
     getUserExercises,
     findUser,
-    saveFileNameById
+    saveFileNameById,
+    findByIdParam
 }
