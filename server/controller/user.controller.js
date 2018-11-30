@@ -63,12 +63,12 @@ function save(req, res, next) {
                 res.send(err);
             }
             let id = user._id;
-            let url = 'http://localhost:8080/log' + '?' + id;
+            let url = 'http://35.243.225.187/login' + '?' + id;
             res.redirect(url);
 
             });
         }else{
-            let url = 'http://localhost:8080/secure';
+            let url = 'http://35.243.225.187/secure';
             res.redirect(url);
         }
     })
@@ -170,7 +170,7 @@ function saveFileNameById(file_name, req, res ){
                 console.log(err);
             }
             console.log(user);
-            let url = 'http://localhost:8080/login'
+            let url = 'http://35.243.225.187/login'
             res.redirect(url);
             //res.status(200).end();
             //res.json(user);

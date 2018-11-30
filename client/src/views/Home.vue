@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="jumbotron">
-      <h1 class="display-4">Home!</h1>
+      <h1 class="display-4">See What Your Friends Are Up To!</h1>
       <ul class="list-group list-group-flush">
         <button v-for="a in all" :key="a" @click.prevent="getUser(a._id)"
           class="list-group-item  btn">{{a.firstName}}</button>

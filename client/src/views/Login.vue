@@ -213,11 +213,19 @@
                 return userId;
             },
             deleteUser(userId){
-                var host = "http://35.196.189.224:3000/exercise/" + userId; 
-              this.$http.post(host, this.input, { headers: { "content-type": "application/json" } }).then(result => {
+                 var confirmmes = confirm("Do you want to delete your account?");
+                    if (confirmmes == true) {
+                        this.crudDeleteUser(userId);
+                    }
+               
+            },
+            crudDeleteUser(p){
+                var ob = {name: p}
+                 var host = "http://35.196.189.224:3000/deleteUser/" + userId; 
+              this.$http.post(host, ob, { headers: { "content-type": "application/json" } }).then(result => {
                   host = result;
                   this.sendData();
-                  this.modal.close();
+    
               });
             }
                 
