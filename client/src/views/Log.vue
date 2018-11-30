@@ -10,22 +10,22 @@
 
 
 <script>
-import * as api from '@/services/api_access';
+//import * as api from '@/services/api_access';
 //getUrl();
 export default {
     mounted: function() {
             
-            var host = this.getHost();
+            //var host = this.getHost();
             document.getElementById("form").action = "http://localhost:3000/upload/5bfb17ff8def392cca915109";
             
         
     },
     methods : {
         getHost () {
-            var userId = api.getUserId()
+            //var userId = api.getUserId()
             var host = "http://localhost:3000/upload/5bfb17ff8def392cca915109";
-            console.log(userId);
-            console.log("user id retrieved");
+            //console.log(userId);
+            //console.log("user id retrieved");
             return host;
         }
     }
