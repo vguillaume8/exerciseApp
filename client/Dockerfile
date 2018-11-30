@@ -1,18 +1,18 @@
 FROM node:8.7
 
-ADD client /client
-#
-WORKDIR client
+# Copy source code
+ADD ./  /source
+WORKDIR /source
 
-# Install dependencies using npm
+# Build install and build
 RUN npm install
+RUN npm run build              
 
-#Build the app
-RUN npm run build
-
-
+# Install Nginx depedency 
+# and expose port 80
 FROM nginx
-
 EXPOSE 80
 
-ADD dist/ /usr/share/nginx/html
+# Copy /dist resources
+RUN cp dist/* /usr/share/nginx/html
+
