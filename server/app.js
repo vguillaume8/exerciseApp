@@ -18,7 +18,7 @@ const port = 3000;
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", 'X-Requested-With, Content-Type');
+  res.header("Access-Control-Allow-Headers", 'X-Requested-With, Content-Type', "*");
   next();
 });
 
@@ -54,6 +54,9 @@ app.post('/userLog', userController.findUser);
 
 app.get('/user/:userId', userController.findById);
 app.post('/userGet', userController.findByIdParam);
+
+app.post('/userGetHome', userController.findById);
+
 
 app.delete('/user/:userId', userController.deleteById);
 

@@ -67,7 +67,7 @@ export default {
             }
         },
         mounted() {
-          this.$http.post("http://35.196.189.224:3000/userAll", this.input, { headers: { "content-type": "application/json", "Access-Control-Allow-Origin":"*"  } }).then(result => {
+          this.$http.post("http://35.196.189.224:3000/userAll", this.input, { headers: { "content-type": "application/json" } }).then(result => {
                     //console.log(result.status);
                     if(result.status == 204){
                         alert("There is no user found under that name!");
@@ -82,20 +82,20 @@ export default {
         },
         methods : {
           getUser(userId){
+              console.log(userId);
             var ob = {userId: userId};
             //var host = "http://35.196.189.224:3000/userGet";
             this.$http.post("http://35.196.189.224:3000/userGet", ob, { headers: { "content-type": "application/json" } }).then(result => {
               this.userData = result;
-              this.userDataPhoto = result.data.PhotoList;
-              //var array = new Array();
-               //console.log(result.data);
-              for(var i = 0; i < result.data.ExerciseList.length; i++ ){
-                  //console.log(result.data.ExerciseList[i]);
-                 
+              if(result.data != null){
+                  this.userDataPhoto = result.data.PhotoList;
+                  this.userDataExercises = result.data.ExerciseList;
               }
-              this.userDataExercises = result.data.ExerciseList;
+              
+        
+              
               this.show();
-            })
+            });
           },
            show () {
                 this.$modal.show('user-modal');
