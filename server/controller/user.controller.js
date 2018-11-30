@@ -73,7 +73,7 @@ function save(req, res, next) {
                 res.send(err);
             }
             let id = user._id;
-            let url = 'http://35.243.225.187/login' + '?' + id;
+            let url = 'http://35.243.225.187/login';
             res.redirect(url);
 
             });

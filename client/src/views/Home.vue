@@ -1,47 +1,44 @@
 <template>
   <div class="home">
     <div class="jumbotron">
-      <h1 class="display-4">See What Your Friends Are Up To!</h1>
+      <h1 class="display-4 header">See What Your Friends Are Up To!</h1>
       <ul class="list-group list-group-flush">
         <button v-for="a in all" :key="a" @click.prevent="getUser(a._id)"
           class="list-group-item  btn">{{a.firstName}}</button>
       </ul>
     </div>
 
-     <modal name="user-modal" id="user-modal" class="modal-body"  height="auto" :scrollable="true">
-               <h3>Recent Photos</h3>
-            <ul class="list-group list-group-flush" id="menu">
-              
-               
-                    <li>
-                        <div class="container">
+    <modal name="user-modal" id="user-modal" class="modal-body"  height="auto" :scrollable="true">
+        <h3>Recent Photos</h3>
+        <ul class="list-group list-group-flush" id="menu">
+            <li>
+                <div class="container">
                     <a  v-for="p in userDataPhoto" :key="p"
                         class="img-thumbnail row">
-                        <img :src="p.fileName" class="col" weight="275px" height="275px"/>
+                        <img :src="p.fileName" class="col" width="275px" height="275px"/>
                     </a> 
-                    </div>
-                    </li>
-            </ul>
-
-            <ul class="list-group list-group-flush">
-                <h3>Recent Exercises</h3>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Duration</th>
-                        <th scope="col" type="date">Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="e in userDataExercises" :key="e">
-                        <td>{{e.name}}</td>
-                        <td>{{e.duration}}</td>
-                        <td>{{e.Date}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </ul>
+                </div>
+            </li>
+        </ul>
+        <ul class="list-group list-group-flush">
+            <h3>Recent Exercises</h3>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Duration</th>
+                    <th scope="col" type="date">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="e in userDataExercises" :key="e">
+                    <td>{{e.name}}</td>
+                    <td>{{e.duration}}</td>
+                    <td>{{e.Date}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </ul>
         
        <p></p>
       
@@ -117,5 +114,9 @@ modal{
 
 ul#menu li {
     display:inline-block;
+}
+.header {
+   
+    align-self: auto;
 }
 </style>
