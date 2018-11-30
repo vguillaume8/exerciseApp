@@ -5,7 +5,7 @@ const multer = require('multer');
 const mongoose = require('mongoose'),
  User = mongoose.model('User');
 var currentId = 0;
-var host = 'http://exercise.vinstonguillaume.com/';
+var host = 'http://35.237.194.223';
 
 
 function findById(req, res, next) {
@@ -74,13 +74,13 @@ function save(req, res, next) {
                 res.send(err);
             }
             let id = user._id;
-            let url = host + '/login';
-            res.redirect('/login');
+            let url = host + 'login';
+            res.redirect(url);
 
             });
         }else{
             let url = host + 'secure';
-            res.redirect('/secure');
+            res.redirect(url);
         }
     })
 
@@ -103,8 +103,8 @@ function deleteById(req, res, next){
             res.send(err);
         }
         res.json({message: 'User successfully deleted'});
-        let url = host + '/login';
-        res.redirect('/login');
+        let url = host + 'login';
+        res.redirect(url);
     });
 
     // console.log("Delete User by ID");
@@ -185,7 +185,7 @@ function saveFileNameById(file_name, req, res ){
             }
             console.log(user);
             let url = host + 'login'
-            res.redirect('/login');
+            res.redirect(url);
             //res.status(200).end();
             //res.json(user);
             
