@@ -1,11 +1,12 @@
 <template>
     <div class="hello">
-        <h1>Login to your account</h1>
-        <h3>Register <a href="/register">Here </a>if you do not have an account</h3>
-        <input type="text" name="firstName" v-model="input.firstName" placeholder="First Name" required/>
-        <input type="text" name="lastName" v-model="input.lastName" placeholder="Last Name" required/>
-        <button v-on:click="sendData()">Login</button>
-
+        <div class="login" v-if="ifLogin() != true">
+            <h1>Login to your account</h1>
+            <h3>Register <a href="/register">Here </a>if you do not have an account</h3>
+            <input type="text" name="firstName" v-model="input.firstName" placeholder="First Name" required/>
+            <input type="text" name="lastName" v-model="input.lastName" placeholder="Last Name" required/>
+            <button v-on:click="sendData()">Login</button>
+        </div>
         <br />
         <br />
         <h3>{{response}} </h3>
@@ -17,17 +18,19 @@
         </ul>
         <h3 > Uploaded Pictures  <a @click.prevent="showPictureModal()" class="btn btn-sm btn-primary" :class="{disabled: ifUserId() == null}">+</a></h3>
         <!--<textarea>{{ pictureList }}</textarea> -->
-        <img :src="`${photo}`" />
         <ul class="list-group list-group-flush" id="menu">
-            <li>
-                <a  v-for="p in photo" :key="p"
-                    class="img-thumbnail">
-                    <img :src="p" v-on:click="deletePhoto(p)" />
-                    
-                </a>
-           
-            </li>
-        </ul>
+              
+               
+                    <li>
+                        <div class="container">
+                    <a  v-for="p in photo" :key="p"
+                        class="img-thumbnail row">
+                        <img :src="p" v-on:click="deletePhoto(p)" class="col" weight="275px" height="275px"/>
+                    </a> 
+                    </div>
+                    </li>
+            </ul>
+
         <a class="btn btn-sm btn-primary" :class="{disabled: ifUserId() == null}"><img src="https://cdn2.iconfinder.com/data/icons/user-interface-30/26/2-512.png" @click.prevent="deleteUser(user)" width="50" height="50"></a>
         <!--- put forms in class modal-body -->
         <modal name="hello-world" class="modal-body">
@@ -51,7 +54,7 @@
                     <input type="file" name="photo" required >
                      <p class="help-block">Upload a picture</p>  
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button> 
+                <button type="submit" class="btn btn-primary" v-on:click="sendData()">Submit</button> 
             </form>
         </modal>
     </div>
@@ -61,6 +64,7 @@
     import * as api from '@/services/api_access';
     var array = new Array();
     var userId = null;
+    var login = false;
     export default {
         name: 'Lets Exercise!',
         data () {
@@ -79,8 +83,7 @@
             }
         },
         mounted() {
-            //console.log("Current user id: " + api.getUserId());
-            if(api.getUserId() != 0 && userId != 0){
+            if(userId != 0){
                 this.getData();
 
             }
@@ -99,7 +102,7 @@
                 //  var finalArray = array.split(",");
                
                  this.photo = result.body;
-                    //console.log(array[1]);
+                    console.log(result.body);
                 
                 });
 
@@ -107,6 +110,7 @@
              
             },
               sendData() {
+                login = true;
                 this.isActive = true;
                 this.$http.post("http://35.196.189.224:3000/userLog", this.input, { headers: { "content-type": "application/json" } }).then(result => {
                     //console.log(result.status);
@@ -128,7 +132,10 @@
                     console.log(userId);
                     
                     //array = res.PhotoList[0].fileName
-                    array = res.PhotoList[0].fileName;
+                    if(res.PhotoList[0] != undefined) {
+                        array = res.PhotoList[0].fileName;
+                    }
+                    
                     this.getPhotos(userId);
                     api.saveId(userId);
                     
@@ -138,9 +145,10 @@
             },
             getData(){
                 //console.log("Function ran");
-                var host = "http://35.196.189.224:3000/userGet/" + api.getUserId();
+                var host = "http://35.196.189.224:3000/userGet/" + userId;
+                var ob = {name: userId};
                 //console.log(host);
-                this.$http.post(host, null, { headers: { "content-type": "application/json" } }).then(result => {
+                this.$http.post(host, ob, { headers: { "content-type": "application/json" } }).then(result => {
                     var res = result;
                     //console.log(res);
                     //this.response = "Welcome Back " + res.firstName + "!",
@@ -169,7 +177,7 @@
               this.$http.post(host, this.input, { headers: { "content-type": "application/json" } }).then(result => {
                   host = result;
                   this.sendData();
-                  this.modal.close();
+                  //this.modal.close();
               });
             },
             show () {
@@ -227,6 +235,9 @@
                   this.sendData();
     
               });
+            },
+            ifLogin(){
+                return login == true;
             }
                 
             

@@ -53,9 +53,7 @@ app.post('/userLog', userController.findUser);
 
 
 app.get('/user/:userId', userController.findById);
-app.post('/userGet', userController.findById, function(req, res){
-  console.log(req.body);
-});
+app.post('/userGet', userController.findById);
 
 app.delete('/user/:userId', userController.deleteById);
 

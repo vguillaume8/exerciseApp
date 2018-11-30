@@ -17,6 +17,16 @@ function findById(req, res, next) {
 
     });
 }
+
+function findByIdParam(req, res, next) {
+    User.findById(req.params.userId, function(err, user){
+        if(err){
+            res.send(err);
+        }
+        res.json(user);
+
+    });
+}
 function findUser(req, res){
     //console.log(req.body);
     var firstname = req.body.firstName;
@@ -155,6 +165,7 @@ function saveFileName(file_name, req, res ){
     );
     
 };
+
 
 function saveFileNameById(file_name, req, res ){
     var fileName = {fileName: file_name}
