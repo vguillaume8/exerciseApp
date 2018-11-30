@@ -67,7 +67,7 @@ export default {
             }
         },
         mounted() {
-          this.$http.post("http://35.196.189.224:3000/userAll", this.input, { headers: { "content-type": "application/json" } }).then(result => {
+          this.$http.post("http://35.196.189.224:3000/userAll", this.input, { headers: { "content-type": "application/json", "Access-Control-Allow-Origin":"*"  } }).then(result => {
                     //console.log(result.status);
                     if(result.status == 204){
                         alert("There is no user found under that name!");
