@@ -9,7 +9,7 @@
         <br />
         <br />
         <h3>{{response}} </h3>
-        <textarea >{{ message }}</textarea>
+        <!--<textarea >{{ message }}</textarea>-->
         <h3> Logged Exercises <a @click.prevent="show()" class="btn btn-sm btn-primary">+</a></h3>
         <ul class="list-group list-group-flush">
             <li v-for="e in exercises" :key="e"
@@ -48,8 +48,7 @@
             <form id="picture-form" action="http://35.196.189.224:3000/upload/" method="post" enctype="multipart/form-data">
                 <div class="form-group">  <label for="exampleInputFile">CHOOSE FILE</label>  
                     <input type="file" name="photo" required >
-                    <input type="hidden" id="user" name="userId" value=""></input>
-                    <p class="help-block">Upload a picture</p>  
+                     <p class="help-block">Upload a picture</p>  
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button> 
             </form>
@@ -59,10 +58,8 @@
 
 <script>
     import * as api from '@/services/api_access';
-    import axios from 'axios';
     var array = new Array();
     var userId = 0;
-    var files = null;
     export default {
         name: 'Lets Exercise!',
         data () {
@@ -79,7 +76,7 @@
             }
         },
         mounted() {
-            console.log("Current user id: " + api.getUserId());
+            //console.log("Current user id: " + api.getUserId());
             if(api.getUserId() != 0 && userId != 0){
                 this.getData();
 
@@ -95,14 +92,14 @@
                 var host = "http://35.196.189.224:3000/getPhotos/"+userId; 
               this.$http.post(host, {array}, { headers: { "content-type": "application/json" } }).then(result => {
                 
-                 var array = result.body
+                 //var array = result.body
                 //  var finalArray = array.split(",");
                
                  this.photo = result.body;
                     //console.log(array[1]);
                 
                 }, error => {
-                    console.error(error);
+                    //console.error(error);
                 });
 
                 
@@ -110,7 +107,7 @@
             },
               sendData() {
                 this.$http.post("http://35.196.189.224:3000/userLog", this.input, { headers: { "content-type": "application/json" } }).then(result => {
-                    console.log(result.status);
+                    //console.log(result.status);
                     if(result.status == 204){
                         alert("There is no user found under that name!");
                     }
@@ -126,27 +123,27 @@
                     this.exercises = exArray;
                     this.pictureList = res.PhotoList;
                     userId = res._id;
-                    console.log(userId);
+                    //onsole.log(userId);
                     
                     //array = res.PhotoList[0].fileName
                     array = res.PhotoList[0].fileName;
                     this.getPhotos(userId);
                     api.saveId(userId);
-                    this.$cookie.set("userId", keyValue, userId);
+                    //this.$cookie.set("userId", keyValue, userId);
                     
                 }, error => {
-                    console.error(error);
+                    //console.error(error);
                     
                 });
                 
             },
             getData(){
-                console.log("Function ran");
+                //console.log("Function ran");
                 var host = "http://35.196.189.224:3000/userGet/" + api.getUserId();
-                console.log(host);
+                //console.log(host);
                 this.$http.post(host, null, { headers: { "content-type": "application/json" } }).then(result => {
                     var res = result;
-                    console.log(res);
+                    //console.log(res);
                     //this.response = "Welcome Back " + res.firstName + "!",
                     this.message = res;
                     var exArray = new Array();
@@ -158,7 +155,7 @@
                     this.exercises = exArray;
                     this.pictureList = res.PhotoList;
                     userId = res._id;
-                    console.log(userId);
+                    //console.log(userId);
                     
                     //array = res.PhotoList[0].fileName
                     array = res.PhotoList[0].fileName;
@@ -166,7 +163,7 @@
                     api.saveId(userId);
                     
                 }, error => {
-                    console.error(error);
+                    //console.error(error);
                     
                 });
 
@@ -174,6 +171,7 @@
             sendExercise(){
               var host = "http://35.196.189.224:3000/exercise/" + userId; 
               this.$http.post(host, this.input, { headers: { "content-type": "application/json" } }).then(result => {
+                  host = result;
                   this.sendData();
                   this.modal.close();
               });
@@ -194,7 +192,7 @@
              },
              showPictureModal(){
                  this.$modal.show('picture-modal');
-                 var user = api.getUserId();
+                 //var user = api.getUserId();
                 //  console.log("current user in modal: " + user);
                
                
@@ -202,9 +200,6 @@
              getId(){
                  return userId;
              },
-             setPost() {
-                 document.getElementById("picture-form").action = "http://35.196.189.224:3000/upload/" + user;				
-            },
             deletePhoto(p){
                 var confirmmes = confirm("Do you want to delete this photo?");
                     if (confirmmes == true) {

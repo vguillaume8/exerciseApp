@@ -71,32 +71,32 @@ export default {
         },
         mounted() {
           this.$http.post("http://35.196.189.224:3000/userAll", this.input, { headers: { "content-type": "application/json" } }).then(result => {
-                    console.log(result.status);
+                    //console.log(result.status);
                     if(result.status == 204){
                         alert("There is no user found under that name!");
                     }
                     var res = result.data;
                     this.response = "Welcome Back " + res.firstName + "!",
                     this.all = res;
-                    var exArray = new Array();
+                    //var exArray = new Array();
              
                     
                 }, error => {
-                    console.error(error);
+                    //console.error(error);
                     
                 });
         },
         methods : {
           getUser(userId){
             var ob = {userId: userId};
-            var host = "http://35.196.189.224:3000/userGet";
+            //var host = "http://35.196.189.224:3000/userGet";
             this.$http.post("http://35.196.189.224:3000/userGet", ob, { headers: { "content-type": "application/json" } }).then(result => {
               this.userData = result;
               this.userDataPhoto = result.data.PhotoList;
-              var array = new Array();
-               console.log(result.data);
+              //var array = new Array();
+               //console.log(result.data);
               for(var i = 0; i < result.data.ExerciseList.length; i++ ){
-                  console.log(result.data.ExerciseList[i]);
+                  //console.log(result.data.ExerciseList[i]);
                  
               }
               this.userDataExercises = result.data.ExerciseList;
