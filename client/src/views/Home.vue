@@ -81,9 +81,6 @@ export default {
                     //var exArray = new Array();
              
                     
-                }, error => {
-                    //console.error(error);
-                    
                 });
         },
         methods : {

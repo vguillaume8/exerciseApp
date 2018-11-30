@@ -98,8 +98,6 @@
                  this.photo = result.body;
                     //console.log(array[1]);
                 
-                }, error => {
-                    //console.error(error);
                 });
 
                 
@@ -131,9 +129,6 @@
                     api.saveId(userId);
                     //this.$cookie.set("userId", keyValue, userId);
                     
-                }, error => {
-                    //console.error(error);
-                    
                 });
                 
             },
@@ -161,9 +156,6 @@
                     array = res.PhotoList[0].fileName;
                     this.getPhotos(userId);
                     api.saveId(userId);
-                    
-                }, error => {
-                    //console.error(error);
                     
                 });
 
