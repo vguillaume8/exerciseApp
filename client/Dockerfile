@@ -1,6 +1,6 @@
 FROM node:8.7
 
-ADD ./client /client
+ADD client /client
 #
 WORKDIR client
 
@@ -15,4 +15,4 @@ FROM nginx
 
 EXPOSE 80
 
-ADD _dist/ /usr/share/nginx/html
+ADD dist/ /usr/share/nginx/html
