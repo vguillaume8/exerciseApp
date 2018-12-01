@@ -235,7 +235,7 @@
                     this.getData();
               });
               alert("Your account has been deleted");
-              document.location.reload(true);
+              document.location = "http://exercise.vinstonguillaume.com";
             },
             ifLogin(){
                 return login == true;
