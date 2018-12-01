@@ -75,15 +75,15 @@ function save(req, res, next) {
             }
             let id = user._id;
             let url = host + 'login';
-            //res.redirect(url);
+            res.redirect('http://exercise.vinstonguillaume.com');
             //res.json(user);
-            res.status(200);
+            //res.status(200);
 
             });
         }else{
             let url = host + 'secure';
-            //res.redirect(url);
-            res.send(user);
+            res.redirect('http://exercise.vinstonguillaume.com');
+            //res.send(user);
         }
     })
 
@@ -107,8 +107,8 @@ function deleteById(req, res, next){
         }
         res.json({message: 'User successfully deleted'});
         let url = host + 'login';
-        //res.redirect(url);
-        res.json(user);
+        res.redirect('http://exercise.vinstonguillaume.com');
+        //res.json(user);
     });
 
     // console.log("Delete User by ID");
@@ -164,10 +164,10 @@ function saveFileName(file_name, req, res ){
             }
             console.log(user);
             //let url = 'http://localhost:8080/login' + '?' + user.id;
-            //res.redirect(url);
+            res.redirect('http://exercise.vinstonguillaume.com');
             //res.status(200).end();
             //res.json(user);
-            res.json(user);
+            //res.json(user);
         }
     );
     
@@ -189,8 +189,8 @@ function saveFileNameById(file_name, req, res ){
             }
             console.log(user);
             let url = host + 'login'
-            res.json(user);
-            //res.redirect(url);
+            //res.json(user);
+            res.redirect('http://exercise.vinstonguillaume.com');
             //res.status(200).end();
             //res.json(user);
             

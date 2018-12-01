@@ -3,7 +3,7 @@
         <a class="btn btn-sm btn-danger logout"  v-if="ifLogin() != false" v-on:click="logout()">Logout</a>
         <div class="login" v-if="ifLogin() != true">
             <h1>Login to your account</h1>
-            <h3>Register <a href="/register">Here </a>if you do not have an account</h3>
+            <h3>Register <router-link to="/register">here </router-link>if you do not have an account</h3>
             <input type="text" name="firstName" v-model="input.firstName" placeholder="First Name" required/>
             <input type="text" name="lastName" v-model="input.lastName" placeholder="Last Name" required/>
             <button v-on:click="sendData()">Login</button>
