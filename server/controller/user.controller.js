@@ -76,7 +76,8 @@ function save(req, res, next) {
             let id = user._id;
             let url = host + 'login';
             //res.redirect(url);
-            res.json(user);
+            //res.json(user);
+            res.status(200);
 
             });
         }else{
