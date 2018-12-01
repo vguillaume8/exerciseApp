@@ -5,7 +5,7 @@ const multer = require('multer');
 const mongoose = require('mongoose'),
  User = mongoose.model('User');
 var currentId = 0;
-var host = 'http://35.237.194.223';
+var host = 'http://35.237.194.223/';
 
 
 function findById(req, res, next) {
