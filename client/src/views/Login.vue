@@ -243,7 +243,7 @@
             logout(){
                 userId = null;
                 login = false;
-                document.location.reload(true);
+                document.location = "http://exercise.vinstonguillaume.com";
             }
         } 
 }
