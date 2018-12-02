@@ -5,6 +5,7 @@ const app = express();
 const cloudinary = require('cloudinary');
 const cloudinaryStorage = require("multer-storage-cloudinary");
 const mongoose = require('mongoose');
+const User = require('./model/user.model');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb+srv://vguillaume:vmoney502@cluster0-zb5te.gcp.mongodb.net/exerciseApp');
 const userController = require('./controller/user.controller');
