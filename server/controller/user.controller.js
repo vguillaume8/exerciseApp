@@ -96,6 +96,11 @@ function deleteById(req, res){
         if(err){
             res.send(err);
         }
+<<<<<<< HEAD
+=======
+        res.json({message: 'User successfully deleted'});
+        let url = host + 'login';
+>>>>>>> parent of 5d8845f4... fixed redirect
         res.redirect('http://exercise.vinstonguillaume.com');
     });
 };
