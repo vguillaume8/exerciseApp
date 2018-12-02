@@ -16,7 +16,7 @@
                 <div class="container">
                     <a  v-for="p in userDataPhoto" :key="p"
                         class="img-thumbnail row">
-                        <img :src="p.fileName" class="col" width="275px" height="275px"/>
+                        <img :src="p.fileName" class="col" />
                     </a> 
                 </div>
             </li>

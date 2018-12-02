@@ -42,7 +42,7 @@
                 <li>
                     <div class="container">
                         <a v-for="p in photo" :key="p" class="img-thumbnail row">
-                            <img :src="p" v-on:click="deletePhoto(p)" class="col"  width="275px" height="275px"/>
+                            <img :src="p" v-on:click="deletePhoto(p)" class="col"/>
                         </a> 
                     </div>
                 </li>

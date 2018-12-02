@@ -1,14 +1,11 @@
 'use strict';
-const fs = require('fs');
-const path = require('path');
-const multer = require('multer');
 const mongoose = require('mongoose'),
  User = mongoose.model('User');
 var currentId = 0;
-var host = 'http://35.237.194.223/';
 
 
-function findById(req, res, next) {
+
+function findById(req, res) {
     console.log(req.body);
     User.findById(req.body.userId, function(err, user){
         if(err){
@@ -19,7 +16,7 @@ function findById(req, res, next) {
     });
 }
 
-function findByIdParam(req, res, next) {
+function findByIdParam(req, res) {
     User.findById(req.params.userId, function(err, user){
         if(err){
             res.send(err);
@@ -37,17 +34,13 @@ function findUser(req, res){
             console.log("user not found");
             res.status(204).send("User not found");
         }else{
-
             currentId = user[0]._id;
-            res.json(user);
-        console.log(user);
-        console.log("user found");
         }
         
     })
 };
 
-function findAll(req, res, next){
+function findAll(req, res){
     var usersProtection = {
         __v: false,
         ExerciseList: false
@@ -62,7 +55,7 @@ function findAll(req, res, next){
 
 };
 
-function save(req, res, next) {
+function save(req, res) {
     console.log("API WORKS!!!");
     var firstName = req.body.firstName;
     var lastName = req.body.lastName;
@@ -73,23 +66,17 @@ function save(req, res, next) {
             if(err){
                 res.send(err);
             }
-            let id = user._id;
-            let url = host + 'login';
             res.redirect('http://exercise.vinstonguillaume.com');
-            //res.json(user);
-            //res.status(200);
 
             });
         }else{
-            let url = host + 'secure';
             res.redirect('http://exercise.vinstonguillaume.com');
-            //res.send(user);
         }
     })
 
 };
 
-function updateUser(req, res, next){
+function updateUser(req, res){
     User.findOneAndUpdate({_id: req.params.userId}, req.body, {new: true}, function(err, user){
         if(err){
             res.send(err);
@@ -98,25 +85,18 @@ function updateUser(req, res, next){
     });
 };
 
-function deleteById(req, res, next){
+function deleteById(req, res){
     User.remove({
         _id: req.params.userId
     }, function(err, user){
         if(err){
             res.send(err);
         }
-        //res.json({message: 'User successfully deleted'});
-        let url = host + 'login';
         res.redirect('http://exercise.vinstonguillaume.com');
-        //res.json(user);
     });
-
-    // console.log("Delete User by ID");
-    // let id = req.params.id;
-    // return service.deleteById(res, id);
 };
 
-function createExercise(req, res, next){
+function createExercise(req, res){
     var exercises = req.body;
     console.log(exercises);
     User.findOneAndUpdate(
@@ -130,7 +110,7 @@ function createExercise(req, res, next){
         });
 };
 
-function getPhotos(req, res, next){
+function getPhotos(req, res){
    User.findById(req.params.userId, 'PhotoList.fileName', function(err, user){
        if(err){
            res.send(err);
@@ -152,8 +132,7 @@ function getPhotos(req, res, next){
 };
 
 function saveFileName(file_name, req, res ){
-    var fileName = {fileName: file_name}
-    console.log("FILE UPLOAD WORKS");
+    var fileName = {fileName: file_name};
 
     User.findOneAndUpdate(
         {_id: req.params.userId},
@@ -162,37 +141,23 @@ function saveFileName(file_name, req, res ){
             if(err){
                 console.log(err);
             }
-            console.log(user);
-            //let url = 'http://localhost:8080/login' + '?' + user.id;
             res.redirect('http://exercise.vinstonguillaume.com');
-            //res.status(200).end();
-            //res.json(user);
-            //res.json(user);
         }
     );
     
 };
 
 
-function saveFileNameById(file_name, req, res ){
-    var fileName = {fileName: file_name}
-    console.log("FILE UPLOAD WORKS");
-    console.log(req.cookie);
-    console.log(req.body);
-    console.log("current user id: " + currentId);
+function saveFileNameById(file_name, res ){
+    var fileName = {fileName: file_name};
     User.findOneAndUpdate(
         {_id: currentId},
         {$push: {PhotoList: fileName}},
-        function(err, user){
+        function(err){
             if(err){
                 console.log(err);
             }
-            console.log(user);
-            let url = host + 'login'
-            //res.json(user);
             res.redirect('http://exercise.vinstonguillaume.com');
-            //res.status(200).end();
-            //res.json(user);
             
         }
     );
@@ -214,14 +179,13 @@ function deletePhoto(req, res){
     );
 };
 
-function getUserExercises(req, res, next){
+function getUserExercises(req, res){
     User.findById(req.params.userId, function(err, user){
         if(err){
             res.send(err);
         }
     });
     
-
 }
 
 

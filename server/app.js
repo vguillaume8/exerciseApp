@@ -2,19 +2,22 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const app = express();
-var cloudinary = require('cloudinary');
+const cloudinary = require('cloudinary');
 const cloudinaryStorage = require("multer-storage-cloudinary");
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-//mongoose.connect('mongodb://dev.jabaridash.com:27017/User_exercise');
 mongoose.connect('mongodb+srv://vguillaume:vmoney502@cluster0-zb5te.gcp.mongodb.net/exerciseApp');
-const User = require('./model/user.model');
 const userController = require('./controller/user.controller');
-var connection = mongoose.connection;
+const connection = mongoose.connection;
+
+// Checks to see if database is connected
 connection.on('connected', function(){
   console.log("DB connected");
 })
+
+// sets port
 const port = 3000;
+
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -27,6 +30,8 @@ app.use(bodyParser.json());
 app.use('/', express.static(__dirname + '/public'));
 
 
+
+// Third party to store images
 cloudinary.config({
   cloud_name: 'dhkzmky45',
   api_key: '392267394929477',
@@ -41,36 +46,25 @@ cloudinary.config({
   const parser = multer({ storage: storage });
 
 
-    
-
-
-
-
 app.use(express.json());
-app.post('/userAll', userController.findAll);
-app.post('/user', userController.save);
-app.post('/userLog', userController.findUser);
 
 
-app.get('/user/:userId', userController.findById);
-app.post('/userGet', userController.findByIdParam);
+app.post('/userAll', userController.findAll); // return all users
 
-app.post('/userGetHome', userController.findById);
-
-
-app.delete('/user/:userId', userController.deleteById);
+app.post('/user', userController.save); // save a user in database
 
 
-// app.post('/api/images', parser.single("image"), (req, res) => {
-//   console.log(req.file) // to see what is returned to you
-//   const image = {};
-//   image.url = req.file.url;
-//   image.id = req.file.public_id;
-//   Image.create(image) // save image information in database
-//     .then(newImage => res.json(newImage))
-//     .catch(err => console.log(err));
-// });
+app.post('/userLog', userController.findUser); // returns a user
+app.get('/user/:userId', userController.findById); // returns a user
+app.post('/userGet', userController.findByIdParam); // returns a user
+app.post('/userGetHome', userController.findById); // returns a user
 
+
+app.delete('/user/:userId', userController.deleteById); // deletes a user
+app.post('/deleteUser/:userId', userController.deleteById); // deletes a user
+
+
+// saves a photo
 app.post('/upload/:userId', function(req, res){
   console.log(req) // to see what is returned to you
   const image = {};
@@ -80,6 +74,7 @@ app.post('/upload/:userId', function(req, res){
     console.log(res.photo);
 });
 
+// saves a photo
 app.post('/upload/', parser.single('photo'), function(req, res){
   console.log("Logged");
   //console.log(req.file) // to see what is returned to you
@@ -91,16 +86,15 @@ app.post('/upload/', parser.single('photo'), function(req, res){
     console.log(res.photo);
 });
 
-app.post('/deleteUser/:userId', userController.deleteById);
 
-app.post('/deletePhoto/:userId', userController.deletePhoto);
 
-app.delete('/photo/:userId/:fileName', userController.deletePhoto);
+app.post('/deletePhoto/:userId', userController.deletePhoto); // deletes a photo
+app.delete('/photo/:userId/:fileName', userController.deletePhoto); // deletes a photo
 
-app.get('/photo/:userId', userController.getPhotos);
-app.post('/getPhotos/:userId', userController.getPhotos);
+app.get('/photo/:userId', userController.getPhotos); // gets all user's photos
+app.post('/getPhotos/:userId', userController.getPhotos); // gets all user's photos
 
-app.post('/exercise/:userId', userController.createExercise);
-app.get('/exercise/:userId', userController.getUserExercises);
+app.post('/exercise/:userId', userController.createExercise); // creates an exercise
+app.get('/exercise/:userId', userController.getUserExercises); // gets all user exercises
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
