@@ -8,7 +8,7 @@
       </ul>
     </div>
 
-    <modal name="user-modal" id="user-modal" class="modal-body"  height="auto" :scrollable="true">
+    <modal name="user-modal" id="user-modal" class="modal-body"  height="auto" :scrollable="true" :adaptive="true">
         <span @click.prevent="hide()" class="close">&times;</span>
         <h3>Recent Photos</h3>
         <ul class="list-group list-group-flush" id="menu">
@@ -69,14 +69,12 @@ export default {
         },
         mounted() {
           this.$http.post("http://35.196.189.224:3000/userAll", this.input, { headers: { "content-type": "application/json" } }).then(result => {
-                    //console.log(result.status);
                     if(result.status == 204){
                         alert("There is no user found under that name!");
                     }
                     var res = result.data;
                     this.response = "Welcome Back " + res.firstName + "!",
                     this.all = res;
-                    //var exArray = new Array();
              
                     
                 });
@@ -85,7 +83,6 @@ export default {
           getUser(userId){
               console.log(userId);
             var ob = {userId: userId};
-            //var host = "http://35.196.189.224:3000/userGet";
             this.$http.post("http://35.196.189.224:3000/userGetHome", ob, { headers: { "content-type": "application/json" } }).then(result => {
               this.userData = result;
               if(result.data != null){

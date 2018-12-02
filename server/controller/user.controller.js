@@ -4,9 +4,8 @@ const mongoose = require('mongoose'),
 var currentId = 0;
 
 
-
+// Finds user by req.body
 function findById(req, res) {
-    console.log(req.body);
     User.findById(req.body.userId, function(err, user){
         if(err){
             res.send(err);
@@ -16,6 +15,7 @@ function findById(req, res) {
     });
 }
 
+// Finds user by req.param
 function findByIdParam(req, res) {
     User.findById(req.params.userId, function(err, user){
         if(err){
@@ -25,8 +25,9 @@ function findByIdParam(req, res) {
 
     });
 }
+
+// finds user by firstname and last name
 function findUser(req, res){
-    //console.log(req.body);
     var firstname = req.body.firstName;
     var lastname = req.body.lastName;
     User.find({firstName: firstname, lastName: lastname}, function(err, user){
@@ -40,6 +41,7 @@ function findUser(req, res){
     })
 };
 
+// finds all users
 function findAll(req, res){
     var usersProtection = {
         __v: false,
@@ -55,8 +57,8 @@ function findAll(req, res){
 
 };
 
+// saves a usser
 function save(req, res) {
-    console.log("API WORKS!!!");
     var firstName = req.body.firstName;
     var lastName = req.body.lastName;
     User.find({firstName: firstName, lastName: lastName}, function(err, user){
@@ -76,6 +78,7 @@ function save(req, res) {
 
 };
 
+// updates user
 function updateUser(req, res){
     User.findOneAndUpdate({_id: req.params.userId}, req.body, {new: true}, function(err, user){
         if(err){
@@ -85,6 +88,7 @@ function updateUser(req, res){
     });
 };
 
+// deletes user
 function deleteById(req, res){
     User.remove({
         _id: req.params.userId
@@ -96,9 +100,9 @@ function deleteById(req, res){
     });
 };
 
+// creates an exercise
 function createExercise(req, res){
     var exercises = req.body;
-    console.log(exercises);
     User.findOneAndUpdate(
         {_id: req.params.userId},
         {$push: {ExerciseList: exercises}},
@@ -110,6 +114,7 @@ function createExercise(req, res){
         });
 };
 
+// gets photos
 function getPhotos(req, res){
    User.findById(req.params.userId, 'PhotoList.fileName', function(err, user){
        if(err){
@@ -131,6 +136,7 @@ function getPhotos(req, res){
    
 };
 
+// save file name
 function saveFileName(file_name, req, res ){
     var fileName = {fileName: file_name};
 
@@ -148,6 +154,7 @@ function saveFileName(file_name, req, res ){
 };
 
 
+// save file name
 function saveFileNameById(file_name, res ){
     var fileName = {fileName: file_name};
     User.findOneAndUpdate(
@@ -164,6 +171,7 @@ function saveFileNameById(file_name, res ){
     
 };
 
+// deltes a photo
 function deletePhoto(req, res){
     const filename = req.body.name;
     console.log(filename);
@@ -179,6 +187,7 @@ function deletePhoto(req, res){
     );
 };
 
+// gets user exercises
 function getUserExercises(req, res){
     User.findById(req.params.userId, function(err, user){
         if(err){
@@ -187,10 +196,6 @@ function getUserExercises(req, res){
     });
     
 }
-
-
-
-
 
 module.exports = {
     findById, 
