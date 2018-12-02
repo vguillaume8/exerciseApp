@@ -105,7 +105,7 @@ function deleteById(req, res, next){
         if(err){
             res.send(err);
         }
-        res.json({message: 'User successfully deleted'});
+        //res.json({message: 'User successfully deleted'});
         let url = host + 'login';
         res.redirect('http://exercise.vinstonguillaume.com');
         //res.json(user);
