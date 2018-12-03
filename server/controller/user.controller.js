@@ -156,7 +156,7 @@ function saveFileName(file_name, req, res ){
 
 
 // save file name
-function saveFileNameById(file_name, res ){
+function saveFileNameById(file_name, req, res ){
     var fileName = {fileName: file_name};
     User.findOneAndUpdate(
         {_id: currentId},
