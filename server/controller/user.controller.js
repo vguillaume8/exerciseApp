@@ -1,6 +1,7 @@
 'use strict';
 const mongoose = require('mongoose'),
  User = mongoose.model('User');
+const path = require('path');
 var currentId = 0;
 
 
@@ -58,7 +59,7 @@ function findAll(req, res){
 
 };
 
-// saves a usser
+// saves a user
 function save(req, res) {
     var firstName = req.body.firstName;
     var lastName = req.body.lastName;
@@ -73,7 +74,7 @@ function save(req, res) {
 
             });
         }else{
-            res.redirect('http://exercise.vinstonguillaume.com');
+            res.sendFile(path.join(__dirname + '/dupUser.html'));
         }
     })
 
