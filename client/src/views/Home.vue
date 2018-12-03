@@ -10,7 +10,7 @@
 
     <modal name="user-modal" id="user-modal" class="modal-body"  height="auto" :scrollable="true" :adaptive="true">
         <span @click.prevent="hide()" class="close">&times;</span>
-        <h3>Recent Photos</h3>
+        <h3><center>Recent Photos</center></h3>
         <ul class="list-group list-group-flush" id="menu">
             <li>
                 <div class="container">
@@ -22,7 +22,7 @@
             </li>
         </ul>
         <ul class="list-group list-group-flush">
-            <h3>Recent Exercises</h3>
+            <h3><center>Recent Exercises</center></h3>
             <table class="table table-hover">
                 <thead>
                     <tr>

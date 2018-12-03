@@ -181,6 +181,7 @@
               var host = "http://35.196.189.224:3000/exercise/" + userId; 
               this.$http.post(host, this.input, { headers: { "content-type": "application/json" } }).then(result => {
                   host = result;
+                  this.hide();
                   this.sendData();
               });
             },
