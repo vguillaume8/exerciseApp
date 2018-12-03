@@ -1,5 +1,5 @@
 <template>
-  <div id="secure">
+  <div id="workout">
     <h1>Click the Link Below to View Workouts You Can Do At Home</h1>
     <a href="https://www.changeinseconds.com/wp-content/uploads/2015/07/Full-Body-Workout-At-Home-CiS.pdf" target="_blank">
       Workouts
