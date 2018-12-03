@@ -8,6 +8,9 @@
         <router-link class="nav-link" exact-active-class="active" to="/about">About</router-link>
       </li>
       <li class="nav-item">
+        <router-link class="nav-link" exact-active-class="active" to="/workout">Workouts</router-link>
+      </li>
+      <li class="nav-item">
           <router-link class="nav-link" exact-active-class="active" to="/register">Register</router-link>
       </li>
        <li class="nav-item">

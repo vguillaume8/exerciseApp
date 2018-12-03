@@ -32,11 +32,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "log" */ './views/Login.vue')
     },
     {
-      path: '/secure',
-      name: 'secure',
-      component: () => import(/* webpackChunkName: "log" */ './views/Secure.vue')
+      path: '/workout',
+      name: 'workout',
+      component: () => import(/* webpackChunkName: "log" */ './views/Workout.vue')
     },
-
+  
 
 
   ]
