@@ -4,9 +4,9 @@
 
 
 					List of features
-
-1.	Input workout information – Submit form for user to input data, result page (workout.html)
-2.	A list of exercise names- A page with video tutorials for each workout (exercise.html)
-3.	Welcome page- Will show current date and time and last time you worked out. (index.html)
-4.	Gallery page- Photos users can upload of themselves working out and can view previous uploaded photos (gallery.html)
+					
+1. Users can create accounts to log their exercises- name of exercise, duration and date (Submit Form)
+2. User can share photos of themselves working out (Submit Form)
+3. Users can view other's workouts and pictures
+4. Users can delete their uploaded pictures and accounts.
 
