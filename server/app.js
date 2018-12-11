@@ -57,7 +57,7 @@ app.post('/user', userController.save); // save a user in database
 
 app.post('/userLog', userController.findUser); // returns a user
 app.get('/user/:userId', userController.findById); // returns a user
-app.post('/userGet', userController.findByIdParam); // returns a user
+app.post('/userGet/:userId', userController.findByIdParam); // returns a user
 app.post('/userGetHome', userController.findById); // returns a user
 
 
@@ -97,5 +97,8 @@ app.post('/getPhotos/:userId', userController.getPhotos); // gets all user's pho
 
 app.post('/exercise/:userId', userController.createExercise); // creates an exercise
 app.get('/exercise/:userId', userController.getUserExercises); // gets all user exercises
+
+app.post('/addFriend/:userId', userController.followUser); // follow a friend
+app.post('/getFriends/:userId', userController.getUserFriends); // returns user's friends
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));

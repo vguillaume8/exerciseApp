@@ -90,6 +90,46 @@ function updateUser(req, res){
     });
 };
 
+// follow a user
+function followUser(req, res){
+    var firstName = req.body.firstName;
+    var lastName = req.body.lastName;
+    var newFriendId = null;
+
+    User.find({firstName: firstName, lastName: lastName}, function(err, user){
+        if(user.length > 0){
+            console.log("User found!");
+            newFriendId = user[0]._id;
+            console.log(newFriendId);
+            var friendOb = {userId: newFriendId, firstName: firstName};
+            User.findOneAndUpdate(
+                {_id: req.params.userId},
+                {$push: {FriendList: friendOb}},
+                function(err, user){
+                    if(err){
+                        res.send(err);
+                    }
+                    res.json(user);
+            });
+
+        } else{
+            res.send("Could not add user as friend");
+        } 
+    });   
+}
+
+function getUserFriends(req, res){
+    var curUser = null;
+    User.findById(req.params.userId, function(err, user){
+        if(err){
+            res.send(err);
+        }
+        console.log(user.FriendList);
+        res.json(user.FriendList);
+    });
+
+}
+
 // deletes user
 function deleteById(req, res){
     User.remove({
@@ -212,5 +252,7 @@ module.exports = {
     getUserExercises,
     findUser,
     saveFileNameById,
-    findByIdParam
+    findByIdParam,
+    followUser,
+    getUserFriends
 }

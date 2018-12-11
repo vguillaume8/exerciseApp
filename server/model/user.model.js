@@ -1,6 +1,7 @@
 'use strict';
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var UserModel = new Schema({
   firstName: String,
@@ -15,6 +16,11 @@ var UserModel = new Schema({
   ],
   PhotoList: [{
     fileName: String
+  }],
+  FriendList: [{
+    _id: false,
+    userId: ObjectId,
+    firstName: String
   }]
  
 
