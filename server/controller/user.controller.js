@@ -199,6 +199,56 @@ function getUserExercises(req, res){
     
 }
 
+function autoComplete(req, res){
+    var exercises = new Array();
+    var output = new Array();
+    var search = req.params.search.toLowerCase();
+   
+        var usersProtection = {
+            __v: false,
+            PhotoList: false
+            
+        };
+    
+        User.find({}, usersProtection, function(err, user){
+            if(err){
+                res.send(err);
+            }
+            //console.log(user);
+            
+            for(var i = 0; i < user.length - 1; i++){
+
+                if(user[i].ExerciseList.length != null && user[i] != null){
+                    for(var j = 0; j < user[i].ExerciseList.length; i++){
+                        if(!exercises.includes(user[i].ExerciseList[j].name.trim().toLowerCase())){
+                            exercises.push(user[i].ExerciseList[j].name.trim().toLowerCase());
+                        }
+                        
+                        
+                    }
+                   
+                }
+                
+
+            }
+      
+            for(var i = 0; i < exercises.length; i++){
+                if(exercises[i].includes(search)){
+                    console.log(exercises[i]);
+                    output.push(exercises[i]);
+                }
+                
+            }
+
+            res.send(output);
+            
+        });
+
+
+    
+   
+}
+
 module.exports = {
     findById, 
     findAll, 
@@ -212,5 +262,6 @@ module.exports = {
     getUserExercises,
     findUser,
     saveFileNameById,
-    findByIdParam
+    findByIdParam,
+    autoComplete
 }

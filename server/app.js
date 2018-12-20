@@ -98,4 +98,6 @@ app.post('/getPhotos/:userId', userController.getPhotos); // gets all user's pho
 app.post('/exercise/:userId', userController.createExercise); // creates an exercise
 app.get('/exercise/:userId', userController.getUserExercises); // gets all user exercises
 
+app.get('/autocomplete/:search', userController.autoComplete);
+
 app.listen(port, () => console.log(`Listening on port ${port}...`));

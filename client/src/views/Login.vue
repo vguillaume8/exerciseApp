@@ -54,10 +54,12 @@
         </a>
 
         <!--- put forms in class modal-body -->
-        <modal name='exercise-modal' class="modal-body">
+        <modal name='exercise-modal' class="modal-body" height="auto">
             <div class="form-group">
                 <label>Exercise Name</label>
-                <input type="text" class="form-control" id="exercisename" v-model="input.name" aria-describedby="exercise" placeholder="Name of Exercise" required>
+               <input type="text" class="form-control" id="exercisename" v-model="input.name" aria-describedby="exercise" placeholder="Name of Exercise" required>
+                <v-select label="full_name" @search="search" :options="results" ></v-select>
+
             </div>
             <div class="form-group">
                 <label >Duration</label>
@@ -85,6 +87,7 @@
 
 <script>
     import * as api from '@/services/api_access';
+    import _ from 'lodash';
     var array = new Array();
     var userId = null; // keeps track of current user
     var login = false; // keeps track if user is logged in
@@ -102,7 +105,8 @@
                 userId: "",
                 file: "",
                 exercises: "",
-                isActive: false
+                isActive: false,
+                results: []
             }
         },
         mounted() {
@@ -245,7 +249,19 @@
                 userId = null;
                 login = false;
                 document.location = "http://exercise.vinstonguillaume.com";
-            }
+            },
+             search(search, loading) {
+                loading(true)
+                this.getRepositories(search, loading, this)
+            },
+            getRepositories: _.debounce((search, loading, vm) => {
+                vm.$http.get(`http://localhost:3000/autocomplete/${search}`).then(res => {
+                    console.log(res.data.items);
+                    vm.results = res.data
+                    loading(false)
+                })
+            }, 250)
+
         } 
 }
         
