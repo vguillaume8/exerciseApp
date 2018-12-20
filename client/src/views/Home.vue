@@ -1,10 +1,9 @@
 <template>
   <div class="home">
     <div class="jumbotron">
-      <h1 class="display-4 header">See What Your Friends Are Up To!  <a class="btn btn-sm btn-primary" v-on:click="openFriendModal()">Follow a New User</a></h1>
-      
+      <h1 class="display-4 header">See What Your Friends Are Up To!</h1>
       <ul class="list-group list-group-flush">
-        <button v-for="a in all" :key="a" @click.prevent="getUser(a.userId)"
+        <button v-for="a in all" :key="a" @click.prevent="getUser(a._id)"
           class="list-group-item  btn">{{a.firstName}}</button>
       </ul>
     </div>
@@ -46,30 +45,11 @@
       
             
         </modal>
-
-         <modal name='friend-modal' class="modal-body">
-            <div class="form-group">
-                <input type="text" name="firstName" v-model="input.firstName" placeholder="Friend's First Name" required/>
-                <input type="text" name="lastName" v-model="input.lastName" placeholder="Friend's Last Name" required/>
-            </div>
-            <button v-on:click="followUser()" class="btn btn-primary">Submit</button>
-        </modal>
   </div>
 
 </template>
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130771998-3"></script>
+
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-130771998-3');
-</script>
-<script>
- import * as api from '@/services/api_access';
-
-
-
 export default {
   name: 'Lets-Exercise',
         data () {
@@ -88,31 +68,16 @@ export default {
             }
         },
         mounted() {
-        //   this.$http.post("http://35.196.189.224:3000/userAll", this.input, { headers: { "content-type": "application/json" } }).then(result => {
-        //             if(result.status == 204){
-        //                 alert("There is no user found under that name!");
-        //             }
-        //             var res = result.data;
-        //             this.response = "Welcome Back " + res.firstName + "!",
-        //             this.all = res;
+          this.$http.post("http://35.196.189.224:3000/userAll", this.input, { headers: { "content-type": "application/json" } }).then(result => {
+                    if(result.status == 204){
+                        alert("There is no user found under that name!");
+                    }
+                    var res = result.data;
+                    this.response = "Welcome Back " + res.firstName + "!",
+                    this.all = res;
              
                     
-        //         });
-        if(api.getUserId() != null){
-            var currentId = api.getUserId();
-            this.$http.post("http://localhost:3000/userGet/" + currentId, this.input, { headers: { "content-type": "application/json" } }).then(result => {
-                if(result.status == 204){
-                alert("There is no user found under that name!");
-                }
-                var res = result.data;
-                this.response = "Welcome Back " + res.firstName + "!",
-                console.log(res);
-                this.all = res.FriendList;
-            });
-
-        }
-
-        
+                });
         },
         methods : {
           getUser(userId){
@@ -130,25 +95,12 @@ export default {
               this.show();
             });
           },
-          followUser(){
-              this.$http.post("http://localhost:3000/addFriend", this.input, { headers: { "content-type": "application/json" } }).then(result => {
-                    if(result.status == 204){
-                        alert("There is no user under that name!");
-                        return;
-                    }
-              }
-              );
-              
-          },
            show () {
                 this.$modal.show('user-modal');
             },
             hide () {
                 this.$modal.hide('user-modal');
             },
-            openFriendModal(){
-                this.$modal.show('friend-modal');
-            }
         }
        
 }

@@ -10,7 +10,7 @@
         The backend was developed using a Node Js express server implementing a MongoDB database utilizing a mongoose layer.
     </p>
 
-    <p><br>This application uses a continuous integration service, <a href="https://travis-ci.com/" target="_blank">Travis CI</a>.
+    <p><br>This application uses a continous integration service, <a href="https://travis-ci.com/" target="_blank">Travis CI</a>.
             When a commit is pushed to github a NodeJs Travis CI build is triggered.
             Within the build a docker build gets triggered and sets up the client and server.
     </p>
@@ -19,7 +19,6 @@
     </p>
 
     <p><br>The active domain is <a href="http://exercise.vinstonguillaume.com" target="_blank">exercise.vinstonguillaume.com</a></p>
-    <p><br>The Github repository is <a href="https://github.com/vguillaume8/letsExercise" target="_blank">exercise.vinstonguillaume.com</a></p>
 
 
   </div>
