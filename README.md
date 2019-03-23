@@ -1,4 +1,5 @@
 # LETS EXERCISE
+[![Build Status](https://travis-ci.com/vguillaume8/youtube-to-mp4-converter.svg?branch=master)](https://travis-ci.com/vguillaume8/youtube-to-mp4-converter)
 
 
 
